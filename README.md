@@ -9,7 +9,7 @@ i developed this web app for training and practicing,its not navak actuall web a
 # this web app is not develop any more!
 
 
-new version is develop in repo :
+new version develop in repo :
 repo link :  
 
 
