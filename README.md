@@ -62,7 +62,7 @@ Everything that used in this project:
 - برنامه حسابداری - 5%
 - - برنامه مدیریت - 95%
 
-## before run app go to navak_config/config.py and fill up this variables
+## db configuration:
 
     USERNAME_DB = ""
     PASSWORD_DB = ""
