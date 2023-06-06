@@ -1,6 +1,13 @@
 # Navak Web App 
 
-### Navak is a web app for organizing your company and employee's. written in Python (Flask) and it is scalable and flexible
+
+Navak Web App - a minimal and minimum ERP
+i developed this web app for training and practicing,its not navak actuall web app 
+
+
+this web app is not develop any more new version is develop in repo :
+repo link :  
+
 
 ### tech stack :
 
@@ -90,15 +97,3 @@ Everything that used in this project:
     linux or mac:
       python3 app.py
 
-# TODO:
-
-- [x] 
-  - Fix Auth app for Login users and redirect them to there panel
-- [x] 
-  - Finish manage users section in admin App
-- [x] 
-  - create and set basic of store app
-- [x] 
-  - internal mailing
-- [x] 
-  - Engineer comments on a  Project
