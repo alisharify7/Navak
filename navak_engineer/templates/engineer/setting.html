@@ -1,0 +1,19 @@
+{% extends "engineer/base.html" %}
+
+{% block title %} تنظیمات{% endblock %}
+
+
+
+{% block engineer_content %}
+    <div class="container-fluid">
+        {# users profile settings #}
+        {% include "sections/setting.html" %}
+    </div>
+{% endblock %}
+
+
+{% block engineer_scripts %}
+    <script src="{{ url_for('login_public_static', path='js/setting.js') }}"></script>
+{% endblock %}
+
+

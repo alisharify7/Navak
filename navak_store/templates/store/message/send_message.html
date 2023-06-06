@@ -1,0 +1,35 @@
+{#
+    this template use when user want sent an internal mail to oter users
+    its inheritance from sections/send_message.html
+        you should pass MailForms.SendMailForm() to this form to work
+        its submit data to message.mail_send_message_post
+#}
+
+{% extends "store/base.html" %}
+
+{% block title %}
+    ارسال نامه درون سازمانی
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center"><span class="text-danger">ارسال</span> نامه به دیگر کاربران</h3>
+                </div>
+                {% include "sections/send_message.html" %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block store_scripts %}
+{% endblock %}
+
+

@@ -1,0 +1,134 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+    مدیریت پروژه ها سامانه
+{% endblock %}
+
+{% block admin_styles %}
+{% endblock %}
+
+{% block admin_content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12 my-5" dir="rtl">
+                <a href="{{ url_for('admin.add_project_get') }}" class="btn btn-success m-2">اضافه کردن پروژه</a>
+                <a href="{{ url_for('admin.search_in_project') }}" class="btn btn-primary m-2">جستجو / ویرایش</a>
+            </div>
+
+
+            <div class="col-lg-6 col-sm-12 d-flex flex-column justify-content-center align-items-center">
+                <div>
+                    <canvas id="firstchart"></canvas>
+                </div>
+                <p>وضعیت نوع پروژه های سامانه</p>
+            </div>
+            <div class="col-lg-6 col-sm-12 d-flex flex-column justify-content-center align-items-center">
+                <div>
+                    <canvas id="secondchart"></canvas>
+                </div>
+                <p>وضعیت تمام پروژه های موجود در سامانه</p>
+            </div>
+
+
+
+            <div class="col-12 my-5" dir="rtl">
+                <h3 class="text-center">پروژه های اخیر <span class="text-danger"> جدید </span> سامانه</h3>
+                <table class="table-hover table table-responsive table-bordered table-dark">
+                    <thead>
+                    <tr>
+                        <th>کد پیگیری</th>
+                        <th>نام پروژه</th>
+                        <th>کارفرما</th>
+                        <th>نوع پروژه</th>
+                        <th>وضعیت</th>
+                        <th>تاریخ شروع</th>
+                        <th>تاریخ پایان</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if content.projects %}
+                        {% for proj in content.projects %}
+                            <tr class="data" data-key="{{ proj.PublicKey }}">
+                                <td>SAPJ-{{ proj.id }}</td>
+                                <td>{{ proj.ProjectName }}</td>
+                                <td>{{ proj.ProjectHandler }}</td>
+                                <td>{{ proj.ProjectType | GET_PROJECT_TYPE }}</td>
+                                <td>{{ proj.ProjectStatus | GET_PROJECT_STATUS }}</td>
+                                <td>{{ proj.ProjectStartDate | convert_dt2_khayyam}}</td>
+                                <td>{{ proj.ProjectEndDate | convert_dt2_khayyam }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            {# pagination for employee in table #}
+                <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+                     dir="ltr">
+                    <ul class="pagination">
+
+                        {% if content.projects.pages - content.current_page  >= 0 and content.current_page != 1 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{{ url_for('admin.project_index', page=content.current_page - 1) }}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% for page in content.projects.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                            {% if page %}
+                                {% if page == content.current_page %}
+                                    <li class="page-item">
+                                        <a class="page-link active"
+                                           href="{{ url_for('admin.project_index', page=page) }}">{{ page }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="{{ url_for('admin.project_index', page=page) }}">{{ page }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if content.projects.pages - content.current_page > 0 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{{ url_for('admin.project_index', page=content.current_page + 1) }}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block admin_scripts %}
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+    <script src="{{ url_for('admin.private_static', path='js/ProjectIndex.js') }}"></script>
+    <script>
+        let trs = document.querySelectorAll("tr.data")
+        trs.forEach( (each)=>{
+            each.addEventListener("click", (element)=>{
+                let key = element.currentTarget.dataset.key;
+                window.location.href = "/admin/project/"+key;
+            })
+            each.addEventListener("mouseenter", (element)=>{
+                element.currentTarget.style.cursor = "pointer";
+            })
+        })
+    </script>
+
+
+{% endblock %}

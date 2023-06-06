@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}سامانه هوشمند ناوک{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/owl.theme.default.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/public.css')}}">
+{% endblock %}
+
+{% block content %}
+    {% include "utils/header.html" %}
+
+    <main dir="rtl">
+    <section>
+        <div class="container-fluid my-5">
+            <h3 class="text-center">بخش های مختلف شرکت</h3>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <table class="table table-primary table-hover table-responsive table-bordered" dir="rtl">
+                        <thead>
+                            <tr class="">
+                                <th class="bg-primary text-white">کد داخلی</th>
+                                <th class="bg-primary text-white">بخش</th>
+                                <th class="bg-primary text-white">اپراتور</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101,102</td>
+                                <td>اداری</td>
+                                <td>آقای محمودی</td>
+                            </tr>
+                            <tr>
+                                <td>103,104</td>
+                                <td>اداری</td>
+                                <td>آقای X</td>
+                            </tr>
+                            <tr>
+                                <td>105,106</td>
+                                <td>اداری</td>
+                                <td>خانم X</td>
+                            </tr>
+                            <tr>
+                                <td>107,108</td>
+                                <td>کنترل کیفیت</td>
+                                <td>آقای X</td>
+                            </tr>
+                            <tr>
+                                <td>121,122</td>
+                                <td>اداری</td>
+                                <td>خانم X</td>
+                            </tr>
+                            <tr>
+                                <td>125,126</td>
+                                <td>اداری</td>
+                                <td>خانم X (حسابداری)</td>
+                            </tr>
+                            <tr>
+                                <td>201,202</td>
+                                <td>انبار</td>
+                                <td>آقای X</td>
+                            </tr>
+                            <tr>
+                                <td>203,204</td>
+                                <td>کنترل کیفیت</td>
+                                <td>تولید X</td>
+                            </tr>
+                            <tr>
+                                <td>205,206</td>
+                                <td>تولید</td>
+                                <td>آقای X</td>
+                            </tr>
+                            <tr>
+                                <td>211,212</td>
+                                <td>تولید</td>
+                                <td>X X</td>
+                            </tr>
+                            <tr>
+                                <td>301,302</td>
+                                <td>تحقیق و توسعه</td>
+                                <td>آقای X</td>
+                            </tr>
+                            <tr>
+                                <td>303,304</td>
+                                <td>تحقیق و توسعه</td>
+                                <td>اقای X</td>
+                            </tr>
+                            <tr>
+                                <td>305,306</td>
+                                <td>تحقیق و توسعه</td>
+                                <td>آقای X</td>
+                            </tr>
+                            <tr>
+                                <td>307,308</td>
+                                <td>تحقیق و توسعه</td>
+                                <td>خانم X (بازرگانی)</td>
+                            </tr>
+                            <tr>
+                                <td>316,317</td>
+                                <td>تحقیق و توسعه</td>
+                                <td>X</td>
+                            </tr>
+                            <tr>
+                                <td>318,319</td>
+                                <td>IT</td>
+                                <td>آقای X</td>
+                            </tr>
+                            <tr>
+                                <td>320,321</td>
+                                <td>تحقیق و توسعه</td>
+                                <td>آقای X</td>
+                            </tr>
+                            <tr>
+                                <td>501,502</td>
+                                <td>تولید</td>
+                                <td>آقای X</td>
+                            </tr>
+                            <tr>
+                                <td>701</td>
+                                <td>حراست</td>
+                                <td>آقای X</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+{% include "utils/index-footer.html" %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{url_for('static', filename='js/jquery-3.6.2.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/owl.carousel.min.js')}}"></script>
+{% endblock %}

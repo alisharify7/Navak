@@ -1,0 +1,69 @@
+{#
+    this template use when users want send internal mail to other users
+    you should pass MailForms.SendMailForm() to this form to work
+    its submit data to message.mail_send_message_post
+
+#}
+
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-12 my-3" id="message-container">
+            <div class="row">
+
+                <div class="col-12 my-3">
+                    <form method="POST" action="{{ url_for('message.mail_send_message_post') }}"
+                          enctype="multipart/form-data" dir="rtl">
+
+                        {{ form.hidden_tag() }}
+                        <label for="mailtitle" class="w-100">
+                            <span>عنوان پیام را وارد نمایید</span>
+                            {{ form.MailTitle(id="mailtitle", class="form-control", placeholder="عنوان نامه") }}
+                            <p class="text-center text-muted">حداقل 1 کاراکتر و حداکثر 128 کاراکتر</p>
+                        </label>
+
+                        <label for="mailcaption" class="w-100">
+                            <span>متن پیام را وارد نمایید</span>
+                            {{ form.MailCaption(id="MailCaption", class="form-control", placeholder="عنوان نامه") }}
+                            <p class="text-center text-muted">حداقل 1 کاراکتر و حداکثر 4096 کاراکتر</p>
+                        </label>
+
+                        <label for="mailtarget" class="w-100">
+                            <span>شناسه کاربری گیرنده را وارد نمایید</span>
+                            <div class="input-group mb-3" dir="ltr">
+                                <span class="input-group-text" id="basic-addon1">@</span>
+                                {{ form.MailTarget(class="form-control", id="mailtarget", placeholder="Username") }}
+                            </div>
+                            <p class="text-center text-muted">بدون @ وارد کنید</p>
+                        </label>
+
+                        <label for="mailattach" class="w-100">
+                            <span>فایل پیوست را انتخاب کنید</span>
+                            {{ form.MailAttach(class="form-control", id="mailattach") }}
+                            <p class="text-center text-muted">تنها فایل های PDF قابل ارسال است</p>
+                        </label>
+                        {{ form.submit(class="btn btn-success w-100 my-4", value="ارسال") }}
+
+                    </form>
+                </div>
+
+
+                <div class="col-12 my-3">
+                    <h3 class="text-center mt-5">راهنمای استفاده از سیستم نامه رسان درونی</h3>
+                    <ul class="d-flex flex-column justify-content-center align-items-center" dir="rtl">
+                        <li>برای ارسال و دریافت نامه نیاز هست حتما برای حساب کاربری خود شناسه کاربری تعریف کنید - (برای
+                            تنظم شناسه کاربری به تنظیمات مراجعه کنید)
+                        </li>
+                        <li>برای ارسال نامه باید حتما طرف مقابل هم دارای شناسه کاربری باشد</li>
+                        <li>برای ناوبری بین بخش های مختلف میتوانید از دکمه های ناوبری فوق استفاده کنید</li>
+                        <li>درخواست های خود را به صورت کامل و دقیق تشریح کنید</li>
+                        <li>درخواست ها به صورت دو طرفه بوده(یک درخواست و یک جواب)</li>
+                        <li>و امکان ریپلای کردن وجود ندارد درخواست خود را کامل وارد کنید</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

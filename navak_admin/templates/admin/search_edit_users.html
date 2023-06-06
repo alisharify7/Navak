@@ -1,0 +1,56 @@
+{% extends "admin/base.html" %}
+
+
+
+{% block title %}
+    جستجو در کاربران - ویرایش
+{% endblock %}
+
+{% block admin_styles %}
+{% endblock %}
+
+{% block admin_content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12 my-5" dir="rtl">
+                <h3 class="text-center">جستجو در <span class="text-danger">کاربران</span> - ویرایش حساب کاربری</h3>
+            </div>
+
+            <div class="col-12 my-5" dir="rtl">
+                <form method="POST" action="{{ url_for('admin.search_edit_users_post') }}">
+                    {{ form.hidden_tag() }}
+                    <label for="username" class="w-100 my-3">
+                        <span class="text-danger">*</span>
+                        <span>نام کاربری حساب مورد نظر را وارد نمایید</span>
+                        {{ form.username(placeholder="نام کاربری", class="form-control",id="username") }}
+                    </label>
+
+                    {{ form.submit(value="جستجو", class="w-100 btn btn-success") }}
+
+                </form>
+            </div>
+
+            <!-- info section for search in users for editing -->
+            <div class="manage-users-info my-5">
+                <h3 class="text-center">راهنمایی جستجو در کاربران</h3>
+                <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                    <li>در این بخش میتوانید در بین کاربران جستجو کنید و حساب کاربری را ویرایش نمایید</li>
+                    <li>در کادر مشخص شده نام کاربری کار را وارد نمایید</li>
+                    <li>نام کاربری کاربر نامی به صورت لاتین است که کاربر برای ورود به حساب کاربری خود از آن استفاده می
+                        کند
+                    </li>
+                </ul>
+            </div>
+
+            {% include "utils/page-footer.html" %}
+
+
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block admin_scripts %}
+{% endblock %}

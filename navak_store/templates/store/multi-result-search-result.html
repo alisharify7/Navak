@@ -1,0 +1,55 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    مدیریت کالا های انبار
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12 my-3 text-start" dir="rtl">
+                <H3 class="text-center">موارد مشابه یافت شده در جستجو</H3>
+            </div>
+
+            <div class="col-12 my-4" dir="rtl">
+                <table class="table table-bordered table-responsive table-hover table-dark">
+                    <thead>
+                    <tr>
+                        <th>نام محصول</th>
+                        <th>تعداد موجود</th>
+                        <th>شرکت سازنده</th>
+                        <th>خریداری شده از</th>
+                        <th>تاریخ ورود</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if content.products %}
+                        {% for product in content.products %}
+                            <tr data-row-key="{{ product.PublicKey }}">
+                                <td>{{ product.ProductName }}</td>
+                                <td>{{ product.ProductQuantity }}</td>
+                                <td>{{ product.ProductManufacture }}</td>
+                                <td>{{ product.ProductBuyFrom }}</td>
+                                <td>{{ product.ProductEnterDate }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block store_scripts %}
+    <script src="{{ url_for('store.serve_store_static', path="js/multi-result-search-result.js") }}"></script>
+{% endblock %}
+
+

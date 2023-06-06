@@ -1,0 +1,117 @@
+{% extends "employee/base.html" %}
+
+{% block title %}
+    مدیریت کارمندان
+{% endblock title %}
+
+{% block employee_styles %}
+    <style>
+        .card-info {
+            transition: all 0.5s;
+        }
+
+        .card-info:hover {
+            transform: translateY(-10px);
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+
+{% block employee_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center"></h3>
+                </div>
+
+                <div class="card-info col-lg-4 col-md-6 col-12 my-2">
+                    <div class="card  shadow">
+                        <div class="card-header text-center">
+                            <p class="m-0">تاریخ شروع قرار داد</p>
+                        </div>
+                        <div dir="rtl" class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <i class="bi bi-calendar-check-fill display-1 text-warning"></i>
+                            <p class="fs-3 m-0">{{ content.StartContract }}</p>
+                        </div>
+                        <div class="card-footer text-center" dir="rtl">
+                            <p class="fs-5 m-0">{{ content.DayPass }} روز پیش ...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-info col-lg-4 col-md-6 col-12 my-2">
+                    <div class="card  shadow">
+                        <div class="card-header text-center">
+                            <p class="m-0">تاریخ پایان قرارداد</p>
+                        </div>
+                        <div dir="rtl" class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <i class="bi bi bi-calendar2-x-fill display-1 text-danger"></i>
+                            <p class="fs-3 m-0">{{ content.EndContract }}</p>
+                        </div>
+                        <div class="card-footer text-center" dir="rtl">
+                            <p class="fs-5 m-0">{{ content.DayRemain }} روز مانده</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-info col-lg-4 col-md-12 col-12 my-2">
+                    <div class="card shadow">
+                        <div class="card-header text-center">
+                            <p class="m-0">نوع قرارداد</p>
+                        </div>
+                        <div dir="rtl" class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <i class="bi bi-chevron-bar-contract display-1 text-primary"></i>
+                            <p class="fs-3 m-0"> قرارداد {{ content.ContractType }} </p>
+                        </div>
+                        <div class="card-footer text-center" dir="rtl">
+                            <p class="fs-5 m-0">{{ content.ContractType }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-info col-12 my-2">
+                    <div class="card  shadow">
+                        <div class="card-header text-center">
+                            <p class="m-0">مدت زمان مرخصی باقی مانده</p>
+                        </div>
+                        <div dir="rtl" class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <i class="bi bi-toggle-off display-1 text-success"></i>
+                            <p class="fs-3 m-0">{{ content.VacationLeft }} ساعت </p>
+                        </div>
+                        <div class="card-footer text-center" dir="rtl">
+                            <p class="fs-5 m-0">هر روز 8 ساعت می باشد</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-12 mt-5 mb-3">
+                    <h3 class="text-center">راهنمایی و قوانین</h3>
+                    <ul class="d-flex flex-column justify-content-center align-items-center" dir="rtl">
+
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون  که لازم است</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    {% include "utils/page-footer.html" %}
+{% endblock %}
+
+{% block employee_scripts %}
+{% endblock %}

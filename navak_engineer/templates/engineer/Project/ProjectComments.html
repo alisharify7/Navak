@@ -1,0 +1,99 @@
+{% extends "engineer/base.html" %}
+
+{% block title %}
+    اعلام وضعیت پروژه {{ content.project.ProjectName }}
+{% endblock%}
+
+{% block engineer_style%}
+{% endblock%}
+
+{% block engineer_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-12">
+                    <h3 class="text-center my-2">تایین وضعیت پروژه</h3>
+                </div>
+
+                <table dir="rtl" class="table table-bordered table-responsive table-hover table-dark">
+                    <thead>
+                    <tr>
+                        <th>نام پروژه</th>
+                        <th>{{ content.project.ProjectName }}</th>
+                    </tr>
+                    <tr>
+                        <th>کارفرما پروژه</th>
+                        <th>{{ content.project.ProjectHandler }}</th>
+                    </tr>
+                    <tr>
+                        <th>نوع پروژه</th>
+                        <th>{{ content.project.ProjectType | GET_PROJECT_TYPE }}</th>
+                    </tr>
+                    </thead>
+                </table>
+
+                {% if not content.comments %}
+                    <div class="alert show alert-danger alert-dismissible">
+                        <button data-bs-toggle="alert" data-bs-dismiss="alert" class="btn btn-close"></button>
+                        <h2 class="text-center">شما تا به حال هیچ وضعیتی برای پروژه ننوشته اید</h2>
+                    </div>
+                {% endif %}
+
+                <div class="col-12 my-3">
+                    <h3 class="text-center my-3">اضافه کردن وضعیت جدید به پروژه</h3>
+                    <form action="{{ url_for('engineer.register_project_comments_post') }}" method="POST"
+                          class="border p-2">
+                        {{ form.hidden_tag() }}
+                        <label class="w-100 my-2" dir="rtl">
+                            <span>لطفا توضیحات خود را در بخش زیر وارد نمایید</span>
+                            {{ form.Comment(class="form-control", placeholder="توضیحات") }}
+                        </label>
+                        {{ form.submit(class="btn btn-success w-100 my-3", value="ثبت وضعیت") }}
+                    </form>
+                </div>
+
+                <div class="col-12">
+                    {% if content.comments %}
+                        <div class="overflow-auto" style="height: 600px">
+                            {% for each in content.comments %}
+                                <div class="my-2 d-flex flex-column justify-content-center align-items-center p-2 m-0 alert alert-primary">
+                                    <div class="w-100">
+                                        <p dir="rtl" style="word-break: break-all">{{ each.Comment }}</p>
+                                    </div>
+                                    <div class="w-100 d-flex justify-content-between align-items-center pt-2"
+                                         style="border-top: #ccc 1px solid">
+                                        <p class="m-0">{{ each.CreatedTime }}</p>
+                                        <p class="m-0">{{ each.engineer_id | UserName }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+
+                <!-- info section for manage users -->
+                <div class="manage-users-info my-5">
+                    <h3 class="text-center">راهنمایی تایین وضعیت پروژه</h3>
+                    <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                        <li>در این بخش میتوانید وضعیت پروژه هایی که به شما محول شده است را یادداشت کنید</li>
+                        <li>برای مشاهده پروژه باید کد پیگیری پروژه که شامل یک رشته عددی می باشد را وارد نمایید</li>
+                        <li>پس از تایین وضعیت پروژه میتوانید یادداشت خود را نوشته و ثبت نمایید</li>
+                        <li>مدیر پروژه میتواند یادداشت های شمارا مطالعه نماید</li>
+                        <li>سعی کنید مشکل یا موردی که شغل شما مرتبط با پروژه می باشد را شرح دید</li>
+                    <li>مثال: بازگشت داده شده از بخشQC، زیرا بخش زیری برد الکترونیکی خراب بوده است بازگشت داده شد به بخش مکانیک</li>
+                </ul>
+            </div>
+
+            {% include "utils/page-footer.html" %}
+
+
+
+        </div>
+    </div>
+</section>
+{% endblock%}
+
+{% block engineer_script%}
+{% endblock%}

@@ -1,0 +1,78 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    مدیریت پروژه ها / انبار
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="rol-12 my-5" dir="rtl">
+                    <h3 class="text-center">ثبت گزارش <span class="text-danger">خروج</span> کالا</h3>
+                </div>
+
+                <div class="col-6 my-5" dir="rtl">
+                    <div class="card shadow text-white">
+                        <div class="card-header bg-primary text-center">
+                            <i class="bi bi-wallet-fill display-4 "></i>
+                        </div>
+
+                        <div class="card-body bg-primary d-flex justify-content-center align-items-center">
+                            <a href="{{ url_for('store.exit_product_project_get') }}"
+                               class="text-center text-dark text-decoration-none fs-3">ثبت خروج</a>
+                        </div>
+
+                        <div class="card-footer bg-primary">
+                            <p class="text-center m-0">خروج کالا پروژه: کالا های مرتبط به پروژه</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-6 my-5" dir="rtl">
+                    <div class="card shadow">
+                        <div class="card-header bg-warning text-center">
+                            <i class="bi bi-person display-4"></i>
+                        </div>
+
+                        <div class="card-body bg-warning d-flex justify-content-center align-items-center">
+                            <a href="{{ url_for('store.exit_product_person_get') }}" class="text-center text-dark text-decoration-none fs-3">ثبت خروج</a>
+                        </div>
+
+                        <div class="card-footer bg-warning">
+                            <p class="text-center m-0">خروج کالا شخص: کالا های مرتبط به اشخاص</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- info section for manage products -->
+                <div class="manage-users-info my-5">
+                    <h3 class="text-center">معیار خروجی کالا از انبار</h3>
+                    <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                        <li>در این بخش میتوانید گزارش خروجی محصول از انبار را ثبت نمایید</li>
+                        <li>گزارش خروجی به 2 دسته ی خروج برای پروژه و خروجی به شخص تقسیم می شود</li>
+                        <li>خروج برای شخص: محصولاتی هستند که برای هیچ پروژه ای نمی باشد و به شخص تحویل داده می شود</li>
+                        <li>خروج برای پروژه : محصولاتی هستند که برای پروژه ای خاص که تعریف شده است خروج زده می شوند</li>
+                        <li>در صورتی که محصولات خارج شده مرتبط به پروژه ای می باشد که در جزییات آن ذکز شده است از خروج کالا مرتبط با
+                        پروژه استفاده نمایید</li>
+                        <li>در صورتی که کالای خروجی مرتبط به هیچ پروژه ای نمی باشد میتوانید از خروج کالا برای شخص استفاده نمایید</li>
+                        <li>در هنگام ثبت گزارش حتما اسم شخص تحویل گیرنده و توضیحات را به طور کامل تکمیل نمایید</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block store_scripts %}
+{% endblock %}
+
+

@@ -1,0 +1,130 @@
+{% extends "employee/base.html" %}
+
+{% block title %}
+    گزارش نویسی کار
+{% endblock title %}
+
+{% block employee_styles %}
+{% endblock %}
+
+
+{% block employee_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center">نوشتن گزارش روزانه</h3>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-work_report" >نوشتن گزارش</button>
+                </div>
+
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <canvas id="my-month-report" class="h-75 w-100"></canvas>
+                </div>
+
+                <div class="col-12 my-4">
+
+                </div>
+
+                <h3 class="text-center mt-2">گزارشات اخیر شما</h3>
+                <table dir="rtl" class="table table-dark table-hover table-responsive table-bordered">
+                    <thead>
+                        <tr>
+                            <th>تاریخ گزارش</th>
+                            <th>متن گزارش</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for report in content.Reports %}
+                        <tr>
+                            <td>{{ report.ReportDate }}</td>
+                            <td class="data-tr" data-status="short"  data-short-text="{{ report.ReportBody | truncate(45, True, " ...") }}" data-large-text="{{ report.ReportBody }}">
+                                <span style="word-break: break-all">{{ report.ReportBody | truncate(45, True, " ...")}}</span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            {# pagination for employee in table #}
+                <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+                     dir="ltr">
+                    <ul class="pagination">
+
+                        {% if content.Reports.pages - content.current_page  >= 0 and content.current_page != 1 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{{ url_for('employee.work_report_get', page=content.current_page - 1) }}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% for page in content.Reports.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                            {% if page %}
+                                {% if page == content.current_page %}
+                                    <li class="page-item">
+                                        <a class="page-link active"
+                                           href="{{ url_for('employee.work_report_get', page=page) }}">{{ page }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="{{ url_for('employee.work_report_get', page=page) }}">{{ page }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if content.Reports.pages - content.current_page > 0 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{{ url_for('employee.work_report_get', page=content.current_page + 1) }}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class="modal fade" id="modal-work_report">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <p class="m-0 modal-title">نوشتن گزارش کار</p>
+                    <button class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('employee.work_report_post') }}"  method="POST" dir="rtl">
+                        {{ form.hidden_tag() }}
+                        {{ form.ReportWorkBody(class="form-control",  placeholder="گزارش", cols="10", rows="15") }}
+                        {{ form.submit(class="btn btn-success w-100 my-2", value="ثبت گزارش") }}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p class="text-center text-muted m-0">توجه: گزارشات تنها در همان روز خودشان نوشته می شوند وامکان ویرایش یا نوشتن گزارش برای روز آینده یا گذشته وجود ندارد!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {% include "utils/page-footer.html" %}
+{% endblock %}
+
+
+{% block employee_scripts %}
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+    <script src="{{ url_for('employee.private_static', path='js/WorkReport.js') }}"></script>
+{% endblock %}

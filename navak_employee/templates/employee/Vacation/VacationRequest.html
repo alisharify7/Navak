@@ -1,0 +1,285 @@
+{% extends "employee/base.html" %}
+
+{% block title %}
+    مدیریت مرخصی ها
+{% endblock title %}
+
+{% block employee_styles %}
+{% endblock %}
+
+
+{% block employee_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center">درخواست مرخصی</h3>
+                    <form action="{{ url_for('employee.vacation_request_post') }}" dir="rtl" method="POST">
+                        {{ form.hidden_tag() }}
+                        <p class="m-0 mt-3">عنوان درخواست را وارد نمایید:</p>
+                        {{ form.RequestTitle(class="form-control my-2", placeholder="عنوان درخواست") }}
+
+                        <p class="m-0 mt-3">متن درخواست را وارد نمایید:</p>
+                        {{ form.RequestBody(class="form-control my-2",  placeholder="متن درخواست") }}
+
+                        <p class="m-0 mt-3"> مدت زمان درخواستی مرخصی را وارد نمایید: </p>
+                        {{ form.RequestTarget(class="form-select my-2") }}
+
+                        <p class="m-0 mt-3">روز مورد نظر برای مرخصی را وارد نمایید: </p>
+                        {{ form.RequestTargetDate(class="form-control my-2", placeholder="تاریخ مورد نظر") }}
+                        <p class="m-0 text-center text-muted">تاریخ را حتما در فرمت YYYY/MM/DD وارد نمایید </p>
+
+                        {{ form.submit(class="w-100 my-2 btn btn-success", value="ثبت") }}
+                    </form>
+                </div>
+
+
+                <h3 class="text-center mt-5"> آخرین درخواست های مرخصی در <span class="text-info">انتظار تایید</span></h3>
+                <table dir="rtl" class="table table-dark table-responsive table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>شماره درخواست</th>
+                            <th>عنوان درخواست</th>
+                            <th>تاریخ درخواست</th>
+                            <th>مقدار درخواست</th>
+                            <th>وضعیت درخواست</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for vacation in content.waited %}
+                        <tr>
+                            <td>{{ loop.index * content.waited_current_page }}</td>
+                            <td>{{ vacation.RequestTitle | truncate(7, True, " ...") }}</td>
+                            <td>{{ vacation.RequestDate | convert_dt2_khayyam }}</td>
+                            <td>{{ vacation.RequestedValue  }} ساعت </td>
+                            <td>
+                                <button class="btn btn-info w-100">
+                                {{ vacation.VacationStatus }}
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {# pagination for waited vacation request  #}
+                    <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+                         dir="ltr">
+                        <ul class="pagination">
+
+                            {% if content.waited.pages - content.waited_current_page  >= 0 and content.waited_current_page != 1 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('employee.vacation_request_get', waited=content.waited_current_page - 1,approve=content.approve_current_page,rejected=content.rejected_current_page) }}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for page in content.waited.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                                {% if page %}
+                                    {% if page == content.waited_current_page %}
+                                        <li class="page-item">
+                                            <a class="page-link active"
+                                               href="{{ url_for('employee.vacation_request_get', waited=page,approve=content.approve_current_page,rejected=content.rejected_current_page) }}">{{ page }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="{{ url_for('employee.vacation_request_get', waited=page,approve=content.approve_current_page,rejected=content.rejected_current_page) }}">{{ page }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if content.waited.pages - content.waited_current_page > 0 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('employee.vacation_request_get', waited=content.waited_current_page + 1,approve=content.approve_current_page,rejected=content.rejected_current_page) }}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+
+
+
+                <h3 class="text-center mt-5"> آخرین درخواست های مرخصی <span class="text-success">تایید</span> شده</h3>
+                <table dir="rtl" class="table table-dark table-responsive table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>شماره درخواست</th>
+                            <th>عنوان درخواست</th>
+                            <th>تاریخ درخواست</th>
+                            <th>مقدار درخواست</th>
+                            <th>وضعیت درخواست</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for vacation in content.approved %}
+                        <tr>
+                            <td>{{ loop.index * content.approve_current_page }}</td>
+                            <td>{{ vacation.RequestTitle | truncate(8, True, " ...") }}</td>
+                            <td>{{ vacation.RequestDate | convert_dt2_khayyam}}</td>
+                            <td>{{ vacation.RequestedValue }} ساعت</td>
+                            <td>
+                                <button class="btn btn-success w-100">
+                                    {{ vacation.VacationStatus }}
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {# pagination for approved vacation request  #}
+                    <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+                         dir="ltr">
+                        <ul class="pagination">
+
+                            {% if content.approved.pages - content.approve_current_page  >= 0 and content.approve_current_page != 1 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('employee.vacation_request_get', approve=content.approve_current_page - 1,waited=content.waited_current_page,rejected=content.rejected_current_page) }}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for page in content.approved.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                                {% if page %}
+
+                                    {% if page == content.approve_current_page %}
+                                        <li class="page-item">
+                                            <a class="page-link active"
+                                               href="{{ url_for('employee.vacation_request_get', approve=page,waited=content.waited_current_page,rejected=content.rejected_current_page) }}">{{ page }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="{{ url_for('employee.vacation_request_get', approve=page,waited=content.waited_current_page,rejected=content.rejected_current_page) }}">{{ page }}</a>
+                                        </li>
+
+                                    {% endif %}
+
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if content.approved.pages - content.approve_current_page > 0 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('employee.vacation_request_get', approve=content.approve_current_page + 1,waited=content.waited_current_page,rejected=content.rejected_current_page) }}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+                {# end of pagination for approved vacation request  #}
+
+
+
+
+
+                <h3 class="text-center mt-5"> آخرین درخواست های مرخصی <span class="text-danger">رد</span> شده</h3>
+                <table dir="rtl" class="table table-dark table-responsive table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>شماره درخواست</th>
+                            <th>عنوان درخواست</th>
+                            <th>تاریخ درخواست</th>
+                            <th>مقدار درخواست</th>
+                            <th>وضعیت درخواست</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for vacation in content.rejected %}
+                        <tr>
+                            <td>{{ loop.index * content.approve_current_page }}</td>
+                            <td>{{ vacation.RequestTitle | truncate(8, True, " ...") }} </td>
+                            <td>{{ vacation.RequestDate | convert_dt2_khayyam }}</td>
+                            <td>{{ vacation.RequestedValue }}ساعت</td>
+                            <td>
+                              <button class="btn btn-danger w-100">
+                                    {{ vacation.VacationStatus }}
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+                    {# pagination for rejcted vacation request  #}
+                    <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+                         dir="ltr">
+                        <ul class="pagination">
+
+                            {% if content.rejected.pages - content.rejected_current_page  >= 0 and content.rejected_current_page != 1 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('employee.vacation_request_get', rejected=content.rejected_current_page - 1 ,approve=content.approve_current_page,waited=content.waited_current_page) }}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for page in content.rejected.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                                {% if page %}
+                                    {% if page == content.rejected_current_page %}
+                                        <li class="page-item">
+                                            <a class="page-link active"
+                                               href="{{ url_for('employee.vacation_request_get', rejected=page ,approve=content.approve_current_page,waited=content.waited_current_page) }}">{{ page }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="{{ url_for('employee.vacation_request_get', rejected=page ,approve=content.approve_current_page,waited=content.waited_current_page) }}">{{ page }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if content.waited.pages - content.rejected_current_page > 0 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('employee.vacation_request_get', rejected=content.rejected_current_page + 1 ,approve=content.approve_current_page,waited=content.waited_current_page) }}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+
+            {# end of  pagination for rejcted vacation request  #}
+
+
+                <div class="info text-center my-5">
+                    <h3>فرمول محاسبه مرخصی</h3>
+                    <p class="m-0 text-muted"> حداقل مرخصی مجاز هر کارمند در ماه 2.5 روز است</p>
+                    <p class="m-0 text-muted">هر روز کاری 8 ساعت می باشد</p>
+                    <p class="m-0 text-muted">d=2.5 ,w=8, x=Timedelta Between StartContract and EndContract </p>
+                    <p class="m-0 text-muted">r = (x/30).d.w</p>
+                    <p class="m-0 text-muted"> مقدار مرخصی شما در ساعت است r</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {% include "utils/page-footer.html" %}
+{% endblock %}
+
+
+{% block employee_scripts %}
+{% endblock %}

@@ -1,0 +1,8 @@
+.info-card {
+    transition: 0.8s;
+}
+
+.info-card:hover {
+    cursor: pointer;
+    transform: translateY(-10px);
+}

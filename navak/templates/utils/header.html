@@ -1,0 +1,30 @@
+    <!-- header start -->
+    <header>
+        <nav class="navbar nav-pills navbar-expand-md bg-base  py-3 fs-5">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand fs-3 text-white">سامانه ناوک</a>
+            <button class="navbar-toggler bg-light" type="button"
+                 data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav ms-auto text-md-end text-center">
+                    <li class="nav-item ">
+                        <a href="{{ url_for('auth.login_view') }}"  class="nav-link text-white">ورود</a>
+                        <!-- data-bs-toggle="modal" href="#login-options"  -->
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white">ابزار ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('sections') }}" class="nav-link text-white">بخش ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white"> خانه</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </nav>
+    </header>
+    <!-- end of header start -->

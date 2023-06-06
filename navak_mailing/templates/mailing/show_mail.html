@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ content.message.MailTitle }}
+{% endblock %}
+
+
+
+{% block styles %}
+    <style>
+        @font-face {
+            font-family: 'BNazanin';
+            src: local('B Nazanin'),
+            local('BNazanin'),
+            url('../../static/fonts/BNazanin.woff2') format('woff2'),
+            url('../../static/fonts/BNazanin.woff') format('woff'),
+            url('../../static/fonts/BNazanin.ttf') format('truetype');
+            font-weight: 400;
+            font-stretch: normal;
+            /*font-style: normal;*/
+        }
+
+        @font-face {
+            font-family: 'BNazaninBold';
+            src: local('B Nazanin Bold'),
+            local('BNazanin-Bold'),
+            url('../../static/fonts/BNaznnBd.woff2') format('woff2'),
+            url('../../static/fonts/BNaznnBd.woff') format('woff'),
+            url('../../static/fonts/BNaznnBd.ttf') format('truetype');
+            font-weight: 700;
+            font-stretch: normal;
+            /*font-style: normal;*/
+        }
+
+
+        * {
+            font-family: 'BNazaninBold' !important;
+        }
+
+        @media print {
+            .body {
+                height: 65vh !important;
+            }
+
+            .header, .body, .footer {
+                border: none !important;
+            }
+
+            .print-gap {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .overflow-print {
+                overflow: hidden !important;
+            }
+
+            .footer {
+                height: 15vh;
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media (max-width: 1574px) {
+            .header, .body, .footer {
+                width: 60% !important;
+            }
+
+        }
+
+        @media (max-width: 842px) {
+            .header, .body, .footer {
+                width: 80% !important;
+            }
+
+        }
+
+        @media (max-width: 582px) {
+            .header, .body, .footer {
+                width: 100% !important;
+            }
+
+        }
+
+        @media print {
+            .header, .body, .footer {
+                width: 100% !important;
+            }
+
+            .btn-print {
+                display: none;
+            }
+
+            .print-show {
+                display: block !important;
+
+            }
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="b-nazanin d-flex flex-column justify-content-center align-items-center message-container">
+        <div class="header d-flex justify-content-between align-items-center px-2 mt-3 print-gap border-dark border-3 border-end border-top border-start"
+             style="width: 40%;height:20vh">
+            <div class="info-box d-flex flex-column justify-content-center align-items-center ms-5" style="font-family: Arial, Helvetica, sans-serif;">
+                <span dir="rtl">تاریخ: <span dir="rtl">{{ content.message.MailDate }}</span></span>
+                <span>شماره پیگیری: {{ content.message.id }}</span>
+                <span>پیوست: {{ "دارد" if content.message.MailAttach else "ندارد" }}</span>
+            </div>
+            <div class="header-title">
+                <img src="data:image/jpeg;base64,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"
+                 width="80px" height="80px" alt="in-the-name-of-god">
+            </div>
+
+            <div class="me-5">
+                <img class="bg-white rounded-circle" src="{{ url_for('static', filename='media/logo.png') }}"
+                 style="width: 80px; height:80px;" alt="samane azma logo">
+            </div>
+
+        </div>
+
+        <div class="body border-dark border-3 border-top border-end border-start" style="width: 40%;">
+            <div class="message pe-5 pt-5" dir="rtl">
+                <p class="m-0 fs-5">از: {{ content.message.From | UserName }}</p>
+                <p class="m-0 fs-5">به : {{ content.message.To | UserName }}</p>
+                <p class="my-2 fs-5">موضوع: {{ content.request_title }} </p>
+            </div>
+            <p dir="rtl" class="px-5 m-0 mt-3">با سلام و احترام;</p>
+            <p style="text-align: justify; max-height: 500px;" class="px-5 request-body overflow-auto overflow-print"
+               dir="rtl">{{ content.message.MailCaption }}</p>
+        </div>
+
+        <div class="footer d-flex justify-content-start align-items-center border-dark border-3 border-bottom border-end border-start"
+             style="width: 40%;">
+            <div class="signiture-box my-5 text-end px-5  position-relative">
+
+                {% if content.message.From | HaveSignature %}
+                    <img src="{{ url_for('message.get_user_signature', user_id=content.message.From ) }}"
+                         width="100px" height="100px"
+                         class="position-absolute d-none print-show" style="bottom: 8% ;left:30%">
+                {% endif %}
+
+                <p class="m-0 px-2">با تشکر</p>
+                <p class="m-0 px-2">{{ content.message.From | UserName }}</p>
+
+                <button class="btn btn-success btn-print w-100 my-2" onclick="window.print()">چاپ نامه</button>
+                {% if not content.message.is_watched and session.get("account-id") == content.message.To %}
+                    <button data-key="{{ content.message.PublicKey }}" class="btn btn btn-success btn-print w-100 post_watched"> پست را مشاهده کردم</button>
+                {% endif %}
+                <a href="{{ content.referrer }}" class="btn btn-success btn-print w-100 my-2 ">بازگشت</a>
+
+                {% if content.message.MailAttach %}
+                    <a href="{{ url_for('message.send_mail_attach', mail_key=content.message.PublicKey) }}"
+                       target="_blank" class="btn btn btn-success btn-print w-100"> فایل ضمینه</a>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        async function set_post_seen(key){
+            let form = new FormData();
+            form.append("key", key)
+            let response = fetch("/message/_set/seen/messages/", {
+                method:"POST",
+                body:form,
+                headers: {
+                    "X-CSRFToken":document.querySelector("#csrf_token").value
+                }
+            })
+            if ((await response).status == 200)
+            {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        const btn = document.querySelector(".post_watched")
+        btn.addEventListener("click", async(e)=>{
+            let response = await set_post_seen(e.currentTarget.dataset.key);
+            if(response == true){
+                Swal.fire({
+                    icon:"success",
+                    text:"پست با موفقیت مشاهده گردید",
+                    title:"وضعیت مشاهده پست"
+                })
+            }
+            else{
+
+             Swal.fire({
+                    icon:"warning",
+                    text:"خطایی رخ داد",
+                    title:"خطا"
+                })
+            }
+        })
+
+    </script>
+{% endblock %}

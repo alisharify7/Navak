@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {# base file for all templates globally #}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- ناوک به معنی تیری که از کمان رها می شود است -->
+
+    <!-- bs5.2 only -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-icons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}"  >
+    <link rel="stylesheet" href="{{url_for('static', filename='css/public.css')}}">
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+
+    <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token() }}">
+    <!-- JavaScript Bundle with Popper -->
+    <script src=" {{url_for('static', filename='js/SweetAlert.js')}} "></script>
+    <script src=" {{url_for('static', filename='js/bootstrap.bundle.min.js')}} "></script>
+    <script src=" {{url_for('static', filename='js/public.js')}} "></script>
+
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+</html>

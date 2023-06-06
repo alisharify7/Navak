@@ -1,0 +1,139 @@
+{% extends 'gard/base.html' %}
+
+{% block title %}
+ثبت گزارش ورود ناشناس
+{% endblock %}
+
+{% block gard_styles %}
+{% endblock %}
+
+
+{% block gard_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center my-3">ثبت گزارش ورود ناشناس</h3>
+                </div>
+                <div class="col-12 my-3">
+                    <form dir="rtl" method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        <label class="w-100 my-3">
+                            <span>عنوان ورود را وارد نمایید:</span>
+                            {{ form.title(class="form-control", placeholder="مثال: ورودی نماینده فروش شرکت X") }}
+                        </label>
+
+                        <label class="w-100 my-3">
+                            <span>توضیحات و نکات را وارد نمایید</span>
+                            {{ form.description(class="form-control", placeholder="مثال ورود خودروی سمند با رنگ و پلاک X به مجموعه همراه با 4 نفر") }}
+                        </label>
+                        {{ form.submit(class="btn btn-success w-100" ,value="ثبت") }}
+
+                    </form>
+                </div>
+
+
+                <table dir="rtl" class="table table-responsive table-dark table-bordered table-hover ">
+                    <thead>
+                        <tr>
+                            <th>عنوان ورود</th>
+                            <th>توضیحات</th>
+                            <th>تاریخ ورود</th>
+                            <th>ثبت خروج</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for guest in content.today_guests %}
+                             <tr>
+                                <td>{{ guest.title | truncate(15, True, "...") }}</td>
+                                <td><span style="word-break: break-all">{{ guest.description | truncate(64, True, "...") }}</span></td>
+                                <td>{{ guest.EnterTime}}</td>
+                                <td>
+                                    <a href="{{ url_for('gard.exit_guest_traffic', key=guest.PublicKey) }}" class="btn btn-danger w-100">ثبت خروج</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+
+
+
+            <h3 class="text-center mt-4">ورود های ناشناس گذشته</h3>
+                <table dir="rtl" class="table table-responsive table-dark table-bordered table-hover ">
+                    <thead>
+                        <tr>
+                            <th>عنوان ورود</th>
+                            <th>توضیحات</th>
+                            <th>تاریخ ورود</th>
+                            <th>تاریخ خروج</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for guest in content.guests %}
+                             <tr>
+                                <td>{{ guest.title }}</td>
+                                <td><span style="word-break: break-all">{{ guest.description  }}</span></td>
+                                <td>{{ guest.EnterTime}}</td>
+                                <td>{{ guest.ExitTime or "ثبت نشده است"}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+
+             {# pagination for guests in table #}
+                <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+                     dir="ltr">
+                    <ul class="pagination">
+
+                        {% if content.guests.pages - content.current_page  >= 0 and content.current_page != 1 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{{ url_for('gard.guest_register', page=content.current_page - 1) }}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% for page in content.guests.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                            {% if page %}
+                                {% if page == content.current_page %}
+                                    <li class="page-item">
+                                        <a class="page-link active"
+                                           href="{{ url_for('gard.guest_register', page=page) }}">{{ page }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="{{ url_for('gard.guest_register', page=page) }}">{{ page }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if content.guests.pages - content.current_page > 0 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{{ url_for('gard.guest_register', page=content.current_page + 1) }}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block gard_scripts %}
+{% endblock %}

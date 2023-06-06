@@ -1,0 +1,138 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    مدیریت کالا های انبار
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+    <div class="container-fluid">
+    <div class="row">
+
+        <div class="col-12 my-3 text-start" dir="rtl">
+
+            <div class="dropdown d-inline">
+                <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    مدیریت کالا
+                </button>
+
+                <ul class="dropdown-menu text-end fs-6">
+                    <li>
+                        <a class="dropdown-item border-bottom" href="{{ url_for('store.add_product_get') }}">
+                            اضافه کردن کالا
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item border-bottom" href="{{ url_for('store.edit_product_get') }}">
+                            ویرایش کالا
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item border-bottom" href="{{ url_for('store.search_product_get') }}">
+                            جستجو کالا
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-12 my-4" dir="rtl">
+            <h3 class="text-center">مدیریت سریع <span class="text-danger">کالا</span> ها در انبار</h3>
+            <table class="table table-bordered table-responsive table-hover table-dark">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام محصول</th>
+                    <th>تعداد موجود</th>
+                    <th>شرکت سازنده</th>
+                    <th>خریداری شده از</th>
+                    <th>تاریخ ورود</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if content.products %}
+                    {% for product in content.products %}
+                        <tr data-row-key="{{ product.PublicKey }}" class="data-tr">
+                            <td dir="ltr" class="text-end">SA-{{ product.id }}</td>
+                            <td>{{ product.ProductName | truncate(15) }}</td>
+                            <td>{{ product.ProductQuantity }}</td>
+                            <td>{{ product.ProductManufacture | truncate(15) }}</td>
+                            <td>{{ product.ProductBuyFrom }}</td>
+                            <td>{{ product.ProductEnterDate }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        {# pagination for employee in table #}
+        <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+             dir="ltr">
+            <ul class="pagination">
+
+                {% if content.products.pages - content.current_page  >= 0 and content.current_page != 1 %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="{{ url_for('store.manage_products', page=content.current_page - 1) }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for page in content.products.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                    {% if page %}
+                        {% if page == content.current_page %}
+                            <li class="page-item">
+                                <a class="page-link active"
+                                   href="{{ url_for('store.manage_products', page=page) }}">{{ page }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{{ url_for('store.manage_products', page=page) }}">{{ page }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if content.products.pages - content.current_page > 0 %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="{{ url_for('store.manage_products', page=content.current_page + 1) }}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </nav>
+
+
+        <!-- info section for manage users -->
+        <div class="manage-users-info my-5">
+            <h3 class="text-center">راهنمایی مدیریت کالا ها انبار</h3>
+            <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                <li>در این بخش میتوانید کالای های انبار را مدیریت نمایید</li>
+                <li>با استفاده از کلید های کنترلی میتوانید کالا را اضافه، ویرایش، و غیرفعال کنید</li>
+                <li>با استفاده از منوی - گزارش میتوانید از انبار گزارش دریافت کنید</li>
+            </ul>
+        </div>
+
+        {% include "utils/page-footer.html" %}
+
+
+    </div>
+{% endblock %}
+
+{% block store_scripts %}
+    <script src="{{ url_for('store.serve_store_static', path="js/manage-products.js") }}"></script>
+{% endblock %}
+
+

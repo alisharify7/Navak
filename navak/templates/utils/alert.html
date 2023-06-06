@@ -1,0 +1,35 @@
+{# alert for flashing messages to user #}
+
+{% with messages = get_flashed_messages(True) %}
+{% if messages %}
+{% for category, message in messages  %}
+<div class="alert p-3 m-2 alert-dismissible show fade alert-{{category}} d-flex flex-column position-fixed top-0 end-0 m-3"
+ style="max-width:300px !important ;z-index: 2000;">
+    <div class="alert-heading d-flex justify-content-between align-items-center">
+        
+        <a role="button" class="btn btn-close" data-bs-dismiss="alert"></a>
+        {% if category == "success" %}
+        <p class="me-5">عملیات با موفقیت انجام شد</p>
+        {% endif %}
+        
+        {% if category == "info" %}
+        <p class="me-5">توجه</p>
+        {% endif %}
+        
+        {% if category == "danger" %}
+        <p class="me-5">خطایی رخ داد</p>
+        {% endif %}
+        
+        {% if category == "warning" %}
+        <p class="me-5">هشدار توجه کنید</p>
+        {% endif %}
+
+    </div>
+    <hr class="m-0 p-0">
+    <div class="alert-body text-end overflow-auto p-2 text-center" style="max-height: 120px !important;">
+        <p class="text-break m-0">{{message}}</p>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}

@@ -1,0 +1,74 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+    نتیجه جستجو در پروژه ها
+{% endblock %}
+
+{% block admin_styles %}
+{% endblock %}
+
+{% block admin_content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12 my-5" dir="rtl">
+                <h3 class="text-center">نتیجه جستجو در پروژه ها</h3>
+                <table class="table-hover table table-responsive table-bordered table-dark">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>نام پروژه</th>
+                        <th>کارفرما</th>
+                        <th>نوع پروژه</th>
+                        <th>وضعیت</th>
+                        <th>تاریخ شروع</th>
+                        <th>تاریخ پایان</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if content.projects %}
+                        {% for proj in content.projects %}
+                            <tr class="data" data-key="{{ proj.PublicKey }}">
+                                <td>SAPJ-{{ proj.id }}</td>
+                                <td>{{ proj.ProjectName }}</td>
+                                <td>{{ proj.ProjectHandler }}</td>
+                                <td>{{ proj.ProjectType | GET_PROJECT_TYPE }}</td>
+                                <td>{{ proj.ProjectStatus | GET_PROJECT_STATUS }}</td>
+                                <td>{{ proj.ProjectStartDate }}</td>
+                                <td>{{ proj.ProjectEndDate }}</td>
+                                <td>
+                                    <a href="{{ url_for('admin.edit_projects', project_key=proj.PublicKey) }}"
+                                       class="btn btn-primary">ویرایش</a>
+                                </td>
+                                <td><a class="btn btn-success"
+                                       href="{{ url_for('admin.show_project_info', project_key=proj.PublicKey) }}">نمایش</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block admin_scripts %}
+    <script>
+        let trs = document.querySelectorAll("tr.data")
+        trs.forEach((each) => {
+            each.addEventListener("click", (element) => {
+                let key = element.currentTarget.dataset.key;
+                window.location.href = "/admin/project/" + key;
+            })
+            each.addEventListener("mouseenter", (element) => {
+                element.currentTarget.style.cursor = "pointer";
+            })
+        })
+    </script>
+{% endblock %}

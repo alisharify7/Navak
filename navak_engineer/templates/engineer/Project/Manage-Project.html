@@ -1,0 +1,59 @@
+{% extends "engineer/base.html" %}
+
+{% block title %}
+    مدیریت پروژه ها
+{% endblock%}
+
+{% block engineer_style%}
+{% endblock%}
+
+{% block engineer_content %}
+<section>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12">
+                <h3 class="text-center my-5">تایین وضعیت پروژه</h3>
+            </div>
+
+            <div class="col-12" for="SearchBox">
+                <form action="{{ url_for('engineer.manage_projects_post') }}" method="POST" dir="rtl">
+
+                    <label class="w-100">
+                        <span>لطفا کد پیگیری پروژه را وارد نمایید</span>
+                        <div class="input-group mb-3" dir="ltr">
+                          <span class="input-group-text" id="basic-addon1">SAPJ-</span>
+                            {{ form.SearchBox(class="form-control", id="SearchBox", placeholder="شماره پیگیری", dir="rtl") }}
+                        </div>
+                        {{ form.hidden_tag() }}
+                        {{ form.submit(class="btn btn-success w-100 my-2", value="جستجو") }}
+
+                    </label>
+
+                </form>
+            </div>
+
+            <!-- info section for manage users -->
+            <div class="manage-users-info my-5">
+                <h3 class="text-center">راهنمایی تایین وضعیت پروژه</h3>
+                <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                    <li>در این بخش میتوانید وضعیت پروژه هایی که به شما محول شده است را یادداشت کنید</li>
+                    <li>برای مشاهده پروژه باید کد پیگیری پروژه که شامل یک رشته عددی می باشد را وارد نمایید</li>
+                    <li>پس از تایین وضعیت پروژه میتوانید یادداشت خود را نوشته و ثبت نمایید</li>
+                    <li>مدیر پروژه میتواند یادداشت های شمارا مطالعه نماید</li>
+                    <li>سعی کنید مشکل یا موردی که شغل شما مرتبط با پروژه می باشد را شرح دید</li>
+                    <li>مثال: بازگشت داده شده از بخشQC، زیرا بخش زیری برد الکترونیکی خراب بوده است بازگشت داده شد به بخش مکانیک</li>
+                </ul>
+            </div>
+
+            {% include "utils/page-footer.html" %}
+
+
+
+        </div>
+    </div>
+</section>
+{% endblock%}
+
+{% block engineer_script%}
+{% endblock%}

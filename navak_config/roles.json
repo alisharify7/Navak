@@ -1,0 +1,34 @@
+{
+  "navak_roles": [
+    {
+      "role-en": "admin",
+      "role-fa": "گروه مدیر",
+      "role-id": "1"
+    },
+    {
+      "role-en": "engineer",
+      "role-fa": "گروه مهندس",
+      "role-id": "2"
+    },
+    {
+      "role-en": "employee",
+      "role-fa": " گروه کارمند",
+      "role-id": "3"
+    },
+    {
+      "role-en": "gard",
+      "role-fa": "گروه حراست",
+      "role-id": "4"
+    },
+    {
+      "role-en": "office",
+      "role-fa": "گروه اداری",
+      "role-id": "5"
+    },
+    {
+      "role-en": "store",
+      "role-fa": "گروه انبار",
+      "role-id": "6"
+    }
+  ]
+}

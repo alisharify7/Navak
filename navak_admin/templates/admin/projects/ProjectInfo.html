@@ -1,0 +1,150 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+    مشخصات پروژه {{ content.project.ProjectName }}
+{% endblock %}
+
+{% block admin_styles %}
+{% endblock %}
+
+{% block admin_content %}
+    <div class="container-fluid">
+    <div class="row">
+
+    <div class="col-12 my-5" dir="rtl">
+        <h3 class="text-center"> مشخصات پروژه <span class="text-danger">{{ content.project.ProjectName }}</span></h3>
+        <div>
+
+            <div class="col-12 my-1" dir="rtl">
+                <a href="{{ url_for('admin.edit_projects', project_key=content.project.PublicKey) }}"
+                   class="btn btn-primary">ویرایش</a>
+                <button id="open_modal_status" data-bs-target="#project_status_modal"
+                        data-pjk="{{ content.project.PublicKey }}" data-bs-toggle="modal" class="btn btn-warning">وضعیت
+                    پروژه در بخش ها
+                </button>
+                <div>
+                    <div class="col-12 my-2" dir="rtl">
+                        <table class="table-hover table table-responsive table-bordered table-dark">
+                            <tbody>
+                            {% if content.project %}
+                                <tr>
+                                    <td>نام پروژه</td>
+                                    <td>{{ content.project.ProjectName }}</td>
+                                </tr>
+                                <tr>
+                                    <td>کد پیگیری پروژه</td>
+                                    <td>SAPJ-{{ content.project.id }}</td>
+                                </tr>
+                                <tr>
+                                    <td>کارفرما پروژه</td>
+                                    <td>{{ content.project.ProjectHandler }}</td>
+                                </tr>
+                                <tr>
+                                    <td>قیمت پروژه</td>
+                                    <td>{{ content.project.ProjectAmount }}</td>
+                                </tr>
+                                <tr>
+                                    <td>نوع پروژه</td>
+                                    <td>{{ content.project.ProjectType | GET_PROJECT_TYPE }}</td>
+                                </tr>
+                                <tr>
+                                    <td>وضعیت پروژه</td>
+                                    <td>{{ content.project.ProjectStatus | GET_PROJECT_STATUS }}</td>
+                                </tr>
+                                <tr>
+                                    <td>توضیحات پروژه</td>
+                                    <td>{{ content.project.ProjectDescription }}</td>
+                                </tr>
+                                <tr>
+                                    <td>تاریخ شروع پروژه</td>
+                                    <td>{{ content.project.ProjectStartDate }}</td>
+                                </tr>
+                                <tr>
+                                    <td>تاریخ پایان پروژه</td>
+                                    <td>{{ content.project.ProjectEndDate }}</td>
+                                </tr>
+
+                            {% endif %}
+                            </tbody>
+                        </table>
+                        <p class="text-danger">آخرین ویرایش در <span class="text-dark" dir="rtl">{{ content.project.LastEdit.date() | convert_dt2_khayyam }}  -  {{ content.project.LastEdit.time()}}</span></p>
+                    </div>
+                    <div class="col-12" dir="rtl">
+                        <h3 class="text-center"><span class="text-danger"> کالا </span>های مرتبط به پروژه</h3>
+                        <table class="table table-responsive table-hover table-bordered table-dark">
+                            <thead>
+                            <tr>
+                                <th>شماره سیستمی کالا</th>
+                                <th>اسم محصول</th>
+                                <th>تعداد</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for p in content.project.ProjectProducts | ProjectProductList %}
+                                <tr>
+                                    <td>SA-{{ p.id }}</td>
+                                    <td>{{ p.ProductName }}</td>
+                                    <td>{{ p.count }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12 my-5" dir="rtl">
+                        <h3 class="text-center"><span class="text-danger"> کالا </span>های خروج یافته از انبار مرتبط به
+                            پروژه
+                        </h3>
+                        <table class="table table-responsive table-hover table-bordered table-dark">
+                            <thead>
+                            <tr>
+                                <th>شخص خارج کننده</th>
+                                <th>تاریخ خروج</th>
+                                <th>گزارش انبار دار</th>
+                                <th>گزارش سیستم</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for log in content.product_exit %}
+                                <tr>
+                                    <td>{{ log.PersonName }}</td>
+                                    <td>{{ log.ExitedDateTime }}</td>
+                                    <td style="word-break: break-all">{{ log.Description }}</td>
+                                    <td style="word-break: break-all" dir="rtl">
+                                        <pre>{{ log.SysLogExit | escape }}</pre>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="project_status_modal">
+                <div class="modal-dialog modal-dialog-scrollable modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button data-bs-dismiss="modal" class="btn btn-close"></button>
+                            <p class="m-0 modal-title">وضعیت پروژه توسط بخش های مختلف</p>
+                        </div>
+                        <div id="comment_container" class="modal-body">
+
+
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block admin_scripts %}
+    <script src="{{ url_for('admin.private_static', path='js/Project-Info.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+ویرایش کالای {{ content.product.ProductName }}
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="rol-12 my-5" dir="rtl">
+                    <h2 class="text-center">ویرایش کالای <span class="text-danger">{{ content.product.ProductName }}</span></h2>
+                </div>
+                <form method="post" action="{{ url_for('store.edit_product_replace_dt') }}" dir="rtl">
+
+                    {{ form.hidden_tag() }}
+
+                    <label class="w-100 my-2" for="ProductName">
+                        <span class="text-danger">*</span>
+                        <span>نام محصول را وارد نمایید</span>
+                        {{ form.ProductName(id="ProductName",class="form-control", placeholder="نام محصول") }}
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductPartNumber">
+                        <span class="text-danger">*</span>
+                        <span>پارت نامبر محصول را وارد نمایید</span>
+                        {{ form.ProductPartNumber(id="ProductPartNumber",class="form-control", placeholder="پارت نامبر") }}
+                        <p class="text-center text-muted">مثال: SA-154</p>
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductStoreId">
+                        <span class="text-danger">*</span>
+                        <span>شماره انبار محصول را وارد نمایید</span>
+                        {{ form.ProductStoreId(id="ProductStoreId",class="form-control", placeholder="شماره انبار") }}
+                        <p class="text-center text-muted">مثال: A1R25 ردیف شماره 1 و طبقه 25</p>
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductType">
+                        <span class="text-danger">*</span>
+                        <span>نوع محصول را وارد نمایید</span>
+                        {{ form.ProductType(id="ProductType",class="form-control", placeholder="نوع محصول") }}
+                        <p class="text-center text-muted">مثال: کانکتور،خازن،برد،دسته ای یا ...</p>
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductManufacture">
+                        <span class="text-danger">*</span>
+                        <span>نام کارخانه سازنده محصول را وارد نمایید</span>
+                        {{ form.ProductManufacture(id="ProductManufacture",class="form-control", placeholder="نام کارخانه سازنده") }}
+                        <p class="text-center text-muted">مثال: شرکت Intel، صنایع صنعتی ماموت یا ...</p>
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductPrice">
+                        <span class="text-danger">*</span>
+                        <span>قیمت محصول را وارد نمایید</span>
+                        {{ form.ProductPrice(id="ProductPrice",class="form-control", placeholder="قیمت محصول") }}
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductBuyFrom">
+                        <span class="text-danger">*</span>
+                        <span>نماینده فروش محصول را وارد نمایید</span>
+                        {{ form.ProductBuyFrom(id="ProductBuyFrom",class="form-control", placeholder="خریداری شده از") }}
+                        <p class="text-center text-muted">در این بخش اسم <span class="text-danger">فروشگاه</span> ،
+                            <span class="text-danger">شرکت</span> یا <span class="text-danger">نماینده</span> ای که قطعه
+                            را از آن خریداری کرده اید وارد نمایید</p>
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductQuantity">
+                        <span class="text-danger">*</span>
+                        <span>تعداد محصول را وارد نمایید</span>
+                        {{ form.ProductQuantity(id="ProductQuantity",class="form-control", placeholder="تعداد محصول") }}
+                        <p class="text-center text-muted">در صورت وجود قطعه در انبار صرفا با منوی ویرایش تعداد آن را
+                            افزایش دهید / نیازی به ثبت دوباره محصول نیست</p>
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductEnterDate">
+                        <span class="text-danger">*</span>
+                        <span>تاریخ ورود محصول به انبار را وارد نمایید</span>
+                        {{ form.ProductEnterDate(id="ProductName",class="form-control", placeholder="تاریخ ورود به انبار") }}
+                        <p class="text-center text-danger m-0">تاریخ را در فرمت زیر حتما وارد نمایید و به صورت جلالی
+                            وارد نمایید</p>
+                        <p class="text-center text-muted m-0">YYYY/MM/DD</p>
+                        <p class="text-center text-muted m-0">YYYY= سال چهار رقمی</p>
+                        <p class="text-center text-muted m-0">MM= ماه دو رقمی</p>
+                        <p class="text-center text-muted m-0">DD= روز دو رقمی</p>
+                        <p class="text-center text-muted m-0">مثال: 1400/10/21</p>
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductPackage">
+                        <span class="text-danger">*</span>
+                        <span>پکیج محصول را وارد نمایید</span>
+                        {{ form.ProductPackage(id="ProductPackage",class="form-control", placeholder="پکیج محصول") }}
+                        <p class="text-center text-muted">مثال: بزرگ-کوچک-بسیار بزرگ-ریز</p>
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductBringPerson">
+                        <span class="text-danger">*</span>
+                        <span>نام شخص آورنده محصول را وارد نمایید</span>
+                        {{ form.ProductBringPerson(id="ProductBringPerson",class="form-control", placeholder="نام شخص آورنده محصول") }}
+                        <p class="text-center text-muted">مثال: آقای احمدی، سید محمد بابکی، احمید قارداشلو</p>
+                    </label>
+
+                    <label class="w-100 my-2" for="ProductDescription">
+                        <span class="text-primary">*غیراجباری*</span>
+                        <span>در صورتی که توضیحاتی در رابطه با محصول می باشد وارد نمایید</span>
+                        {{ form.ProductDescription(id="ProductDescription",class="form-control", placeholder="توضیحات محصول") }}
+                        <p class="text-muted text-center">مثال: اگر محصول به صورت قرضی یا .. وارد انبار شده است نوشته
+                            شود</p>
+                    </label>
+                    <input type="hidden" name="product-key" value="{{ content.product.PublicKey }}">
+                    {{ form.submit(class="btn btn-success w-100 my-3", value="ویرایش") }}
+                </form>
+
+                <!-- info section for manage products -->
+                <div class="manage-users-info my-5">
+                    <h3 class="text-center">راهنمایی اضافه کردن کالا به انبار</h3>
+                    <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                        <li>در این بخش میتوانید کالای های انبار را مدیریت نمایید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید
+                        </li>
+                        <li>قسمت هایی که دارای ستاره <span class="text-danger">*</span> می باشد اجباری می باشد و
+                            حتما باید دارای مقدار باشند
+                            </li>
+                        </ul>
+                    </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block store_scripts %}
+{% endblock %}
+
+

@@ -1,0 +1,117 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    صفحه مدیریت انبار
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6 col-12 my-3" dir="rtl">
+                    <div class="card text-white shadow">
+                        <div class="card-header bg-primary">
+                            <h4 class="text-center m-2">کالا های وارد شده به انبار امروز</h4>
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center bg-primary">
+                            <i class="bi bi-box-arrow-in-left display-1"></i>
+                            <H4>{{ content.today_enter }}</H4>
+                        </div>
+                        <div class="card-footer text-center bg-primary">
+                            <p class="text-center m-0">تعداد کالا هایی که امروز در انبار برای آنها گزارش ورود ثبت شده
+                                است</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 my-3" dir="rtl">
+                    <div class="card text-white shadow">
+                        <div class="card-header bg-warning">
+                            <h4 class="text-center m-2">کالا های خارج شده از انبار امروز- مرتبط به پروژه</h4>
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center bg-warning">
+                            <i class="bi bi-box-arrow-left display-1"></i>
+                            <H4>{{ content.today_exit_project }}</H4>
+                        </div>
+                        <div class="card-footer text-center bg-warning">
+                            <p class="text-center m-0">تعداد کالا های مرتبط با پروژه ای که امروز در انبار برای آنها گزارش خروج ثبت شده است</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 my-3" dir="rtl">
+                    <div class="card text-white shadow">
+                        <div class="card-header bg-secondary">
+                            <h4 class="text-center m-2">کالا های خارج شده از انبار امروز- غیر پروژه ای شخص</h4>
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center bg-secondary">
+                            <i class="bi bi-box-arrow-left display-1"></i>
+                            <H4>{{ content.today_exit_person }}</H4>
+                        </div>
+                        <div class="card-footer text-center bg-secondary">
+                            <p class="text-center m-0">تعداد کالا های غیر مرتبط با پروژه ای و برای شخص که امروز در انبار برای آنها گزارش خروج ثبت شده
+                                است</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 my-3" dir="rtl">
+                    <div class="card text-white shadow">
+                        <div class="card-header bg-success">
+                            <h4 class="text-center m-2">کالا هایی با موجودی کمتر از 50</h4>
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center bg-success">
+                            <i class="bi bi-shop-window display-1"></i>
+                            <H4>{{ content.less_than_fifty }}</H4>
+                        </div>
+                        <div class="card-footer text-center bg-success">
+                            <p class="m-0 text-center">تعداد کالا هایی که موجودی آنها در انبار کمتر از 50 است</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 my-3" dir="rtl">
+                    <div class="card text-white shadow">
+                        <div class="card-header bg-info">
+                            <h4 class="text-center m-2">کالا هایی با موجودی کمتر از 100</h4>
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center bg-info">
+                            <i class="bi bi-shop-window display-1"></i>
+                            <H4>{{ content.less_than_100 }}</H4>
+                        </div>
+                        <div class="card-footer text-center bg-info">
+                            <p class="m-0 text-center">تعداد کالا هایی که موجودی آنها در انبار کمتر از 50 است</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 my-3" dir="rtl">
+                    <div class="card text-white shadow">
+                        <div class="card-header bg-danger">
+                            <h4 class="text-center m-2">کالا هایی با موجودی بیشتر از 250</h4>
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center bg-danger">
+                            <i class="bi bi-shop-window display-1"></i>
+                            <H4>{{ content.more_than_250 }}</H4>
+                        </div>
+                        <div class="card-footer text-center bg-danger">
+                            <p class="m-0 text-center">تعداد کالا هایی که موجودی آنها در انبار بیشتر از 250 است</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block store_scripts %}
+{% endblock %}
+
+

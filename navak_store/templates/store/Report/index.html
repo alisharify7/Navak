@@ -1,0 +1,54 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    اضافه کردن کالای جدید به انبار
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="rol-12 my-5">
+                    <h2 class="text-center">گزارشات انبار داری</h2>
+                </div>
+
+                    <div class="" dir="rtl">
+                        <a class="btn-success btn my-2" href="{{ url_for('store.report_exit_project_index') }}">مشاهده کالا های خروجی/ پروژه</a>
+                        <a class="btn-warning btn my-2" href="{{ url_for('store.report_exit_product_index') }}">مشاهده کالا های خروجی/ شخص</a>
+                            <br>
+                        <a class="btn-danger btn my-2" href="">گزارش خروجی سالیانه</a>
+                        <a class="btn-info btn my-2" href="">گزارش خروجی ماهیانه</a>
+                        <a class="btn-primary btn my-2" href="">گزارش خروجی هفتگی</a>
+                        <a class="btn-secondary btn my-2" href="">گزارش خروجی روزانه</a>
+                        <a class="btn-secondary btn my-2" href="{{ url_for('store.report_whole_store') }}">گزارش کلی از انبار</a>
+                    </div>
+
+
+                <!-- info section for manage products -->
+                <div class="manage-users-info my-5">
+                    <h3 class="text-center">راهنمایی اضافه کردن کالا به انبار</h3>
+                    <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                        <li>در این بخش میتوانید کالای های انبار را مدیریت نمایید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید
+                        </li>
+                        <li>قسمت هایی که دارای ستاره <span class="text-danger">*</span> می باشد اجباری می باشد و حتما باید دارای مقدار باشند</li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block store_scripts %}
+{% endblock %}
+
+

@@ -1,0 +1,248 @@
+{% extends "admin/base.html" %}
+
+
+
+{% block title %}
+    مدیریت کاربران سامانه
+{% endblock %}
+
+{% block admin_styles %}
+{% endblock %}
+
+{% block admin_content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 my-3" dir="rtl">
+
+                <div class="dropdown d-inline">
+                    <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        اضافه کردن کاربر
+                    </button>
+
+                    <ul class="dropdown-menu text-end">
+                        <li><a class="dropdown-item border-bottom" href="{{ url_for('admin.add_new_employee_get') }}">کارمند</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ url_for('admin.add_new_user_get') }}">سایر</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown d-inline">
+                    <button class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        ویرایش کاربر
+                    </button>
+
+                    <ul class="dropdown-menu text-end">
+                        <li><a class="dropdown-item border-bottom"
+                               href="{{ url_for("admin.search_edit_employees_get") }}">کارمند</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for("admin.search_edit_users_get") }}">سایر</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <!-- Manage Users -->
+            <div class="col-12 my-5" dir="rtl">
+                {% if content.users %}
+                    <h3 class="text-center"> مدیریت سریع <span class="text-danger">کاربران</span></h3>
+                    <table class="table table-dark table-responsive table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>نام کاربری</th>
+                            <th>نام و نام خانوادگی</th>
+                            <th>شناسه کاربری</th>
+                            <th>وضعیت</th>
+                            <th>گروه کاربر</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in content.users %}
+                            <tr>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.FullName }}</td>
+                                <td>{{ "@"+user.Usertag if user.Usertag else "تنظیم نشده" }}</td>
+                                {% if user.Active %}
+                                    <td>
+                                        <button class="btn btn-success w-100">فعال</button>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <button class="btn btn-danger w-100">غیرفعال</button>
+                                    </td>
+                                {% endif %}
+                                <td>{{ user.UserRole | RoleName }}</td>
+                                <td>
+                                    <a href="{{ url_for('admin.edit_user_get', user_key=user.PublicKey) }}"
+                                       class="btn btn-primary w-100">ویرایش</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {# pagination for users in table #}
+                    <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+                         dir="ltr">
+                        <ul class="pagination">
+
+                            {% if content.users.pages - content.user_current_page  >= 0 and content.user_current_page != 1 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('admin.manage_users', page_user=content.user_current_page - 1) }}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for page in content.users.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                                {% if page %}
+                                    {% if page == content.user_current_page %}
+                                        <li class="page-item">
+                                            <a class="page-link active"
+                                               href="{{ url_for('admin.manage_users', page_user=page) }}">{{ page }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="{{ url_for('admin.manage_users', page_user=page) }}">{{ page }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if content.users.pages - content.user_current_page > 0 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('admin.manage_users', page_user=content.user_current_page + 1) }}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+
+                {% endif %}
+
+            </div>
+        </div>
+        <!-- End of  Manage Users -->
+
+        <!-- Manage Employees -->
+        <div class="col-12 my-5" dir="rtl">
+            {% if content.employee %}
+                <h3 class="text-center"> مدیریت سریع <span class="text-danger">کارمندان</span></h3>
+                <table class="table table-dark table-responsive table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>نام کاربری</th>
+                        <th>نام و نام خانوادگی</th>
+                        <th>تاریخ ساخت</th>
+                        <th>وضعیت</th>
+                        <th>عنوان شغلی</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for employee in content.employee %}
+                        <tr>
+                            <td>{{ employee.UserName }}</td>
+                            <td>{{ employee.FirstName }} {{ employee.LastName }}</td>
+                            <td>{{ employee.Created_Time }}</td>
+                            {% if employee.Active %}
+                                <td>
+                                    <button class="btn btn-success w-100">فعال</button>
+                                </td>
+                            {% else %}
+                                <td>
+                                    <button class="btn btn-danger w-100">غیرفعال</button>
+                                </td>
+                            {% endif %}
+                            <td>{{ employee.WorkPosition | WorkPositionName }}</td>
+                            <td>
+                                <a href="{{ url_for('admin.edit_employee_get', employee_key=employee.PublicKey) }}"
+                                   class="btn btn-primary w-100">ویرایش</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                {# pagination for employee in table #}
+                <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+                     dir="ltr">
+                    <ul class="pagination">
+
+                        {% if content.employee.pages - content.employee_current_page  >= 0 and content.employee_current_page != 1 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{{ url_for('admin.manage_users', page_employee=content.employee_current_page - 1) }}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% for page in content.employee.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                            {% if page %}
+                                {% if page == content.employee_current_page %}
+                                    <li class="page-item">
+                                        <a class="page-link active"
+                                           href="{{ url_for('admin.manage_users', page_employee=page) }}">{{ page }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="{{ url_for('admin.manage_users', page_employee=page) }}">{{ page }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if content.employee.pages - content.employee_current_page > 0 %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="{{ url_for('admin.manage_users', page_employee=content.employee_current_page + 1) }}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+
+            {% endif %}
+
+        </div>
+    </div>
+    <!-- End of Manage Employees -->
+
+
+
+    <!-- info section for manage users -->
+    <div class="manage-users-info my-5">
+        <h3 class="text-center">راهنمایی مدیریت کاربران</h3>
+        <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+            <li>در این بخش میتوانید کاربران را مدیریت نمایید</li>
+            <li>با استفاده از کلید های کنترلی میتوانید کاربران را اضافه حذف و ویرایش نمایید</li>
+            <li>در صورتی که نیاز دارید کاربری را به طور کامل از سامانه خارج نمایید میتوانید وضعیت حساب کاربری کاربر را
+                به صورت غیرفعال در بیاورید و سپس در انتهای نام کاربری کار کلمه $expire$ را گزاشته و ذخیره نمایید
+            </li>
+            <li>در سربرگ گزارش میتوانید یک گزارش از کاربران سامانه بدست بیاورید</li>
+        </ul>
+    </div>
+
+    {% include "utils/page-footer.html" %}
+
+
+
+    </div>
+{% endblock %}
+
+
+{% block admin_scripts %}
+{% endblock %}

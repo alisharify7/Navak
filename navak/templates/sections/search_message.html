@@ -1,0 +1,53 @@
+{#
+    this tmeplate uses for each user search in it self mailbox content
+    you should pass MailForms.SearchMailForm() to work
+#}
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-12 my-3" id="message-container">
+            <div class="row">
+
+                <div class="col-12 my-5" dir="rtl">
+                    <form action="{{ content.form_post }}" method="POST">
+                        {{ form.hidden_tag() }}
+
+                        <label class="w-100 my-3" for="search-option">
+                            <span>معبار جستجو در نامه های خود را وارد کنید</span>
+                            {{ form.SearchOption(id="search-option", class="form-control") }}
+                        </label>
+
+                        <label class="w-100 my-3" for="search-target">
+                            <span>جستجو در کدام صندوق نامه اعمال شود</span>
+                            {{ form.SearchTarget(id="search-target", class="form-control") }}
+                        </label>
+                        <label class="w-100 my-3" for="search-box">
+                            <span>محتوای مورد جستجو را وارد کنید</span>
+                            {{ form.SearchBox(id="search-box", class="form-control", placeholder="متن مورد جستجو") }}
+                        </label>
+                        {{ form.submit(class="btn btn-success w-100 my-4", value="جستجو") }}
+
+                    </form>
+                </div>
+
+                <!-- system roel -->
+                <div class="col-12 my-3">
+                    <h3 class="text-center mt-5">راهنمای استفاده از سیستم نامه رسان درونی</h3>
+                    <ul class="d-flex flex-column justify-content-center align-items-center" dir="rtl">
+                        <li>برای ارسال و دریافت نامه نیاز هست حتما برای حساب کاربری خود شناسه کاربری تعریف کنید - (برای
+                            تنظم شناسه کاربری به تنظیمات مراجعه کنید)
+                        </li>
+                        <li>برای ارسال نامه باید حتما طرف مقابل هم دارای شناسه کاربری باشد</li>
+                        <li>برای ناوبری بین بخش های مختلف میتوانید از دکمه های ناوبری فوق استفاده کنید</li>
+                        <li>درخواست های خود را به صورت کامل و دقیق تشریح کنید</li>
+                        <li>درخواست ها به صورت دو طرفه بوده(یک درخواست و یک جواب)</li>
+                        <li>و امکان ریپلای کردن وجود ندارد درخواست خود را کامل وارد کنید</li>
+                    </ul>
+                </div>
+                <!-- end of system roel -->
+
+            </div>
+        </div>
+
+    </div>
+</div>

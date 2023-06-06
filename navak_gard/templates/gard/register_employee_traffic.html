@@ -1,0 +1,28 @@
+{% extends 'gard/base.html' %}
+
+{% block title %}
+لیست کارمندان شرکت
+{% endblock %}
+
+{% block gard_styles %}
+<style>
+    .employee_list{
+        max-height: 450px;
+    }
+</style>
+{% endblock %}
+
+
+{% block gard_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row container_row">
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block gard_scripts %}
+    <script src="{{ url_for('gard.private_static', path='js/Employee_list.js') }}"></script>
+{% endblock %}

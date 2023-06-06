@@ -1,0 +1,134 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    مشخصات پروژه {{ content.product.ProductName }}
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row my-3" dir="rtl">
+                <div class="col-12 mt-4">
+                    <h3 class="text-center mt-4 d-flex flex-column justify-content-center align-items-center">مشاهده
+                        مشخصات محصول
+                        <p style="word-break: break-all"
+                           class="text-danger m-0 w-75">{{ content.product.ProductName }}</p>
+                    </h3>
+                </div>
+                <div class="col-12 my-3">
+                    <a href="{{ url_for('store.edit_product', product_key=content.product.PublicKey) }}"
+                       class="btn btn-primary">ویرایش مشخصات کالا</a>
+                </div>
+
+                <div class="col-12 mb-4">
+                    <table class="table table-dark table-responsive table-hover table-bordered">
+                        <tbody>
+                        {% if content.product %}
+
+                            <tr>
+                                <td>نام کالا</td>
+                                <td>{{ content.product.ProductName }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>پارت نامبر کالا</td>
+                                <td>{{ content.product.ProductPartNumber }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>شماره سیستمی کالا</td>
+                                <td>SA-{{ content.product.id }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>شماره انبار کالا</td>
+                                <td>{{ content.product.ProductStoreId }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>نوع کالا</td>
+                                <td>{{ content.product.ProductType }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>کارخانه سازنده کالا</td>
+                                <td>{{ content.product.ProductManufacture }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>قیمت کالا</td>
+                                <td>{{ content.product.ProductPrice }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>موجودی کالا</td>
+                                <td>{{ content.product.ProductQuantity }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>خریداری شده از</td>
+                                <td>{{ content.product.ProductBuyFrom }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>تاریخ ورود کالا</td>
+                                <td>{{ content.product.ProductEnterDate | convert_dt2_khayyam }}</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>شخص آورنده کالا</td>
+                                <td>{{ content.product.ProductBringPerson }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>وضعیت کالا</td>
+                                {% if content.product.ProductStatus %}
+                                    <td>
+                                        <button class="btn btn-success w-100 h-100">فعال</button>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <button class="btn btn-danger w-100 h-100">غیر فعال</button>
+                                    </td>
+                                {% endif %}
+                            </tr>
+
+                            <tr>
+                                <td>توضیحات کالا</td>
+                                <td style="word-break: normal">{{ content.product.ProductDescription }}</td>
+                            </tr>
+
+                        {% endif %}
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="m-0 text-muted">اضافه شده توسط <span
+                                class="text-danger">{{ content.product.AddedBy | UserName }}</span>
+                            در <span
+                                    dir="rtl">{{ content.product.CreatedTime.time() }} - {{ content.product.CreatedTime | convert_dt2_khayyam }}</span>
+                        </p>
+
+                        <p class="m-0 text-muted">آخرین ویرایش مشخصات کالا در
+                            <span dir="rtl">{{ content.product.LastEdit | convert_dt2_khayyam  }} - {{ content.product.LastEdit.time() }}</span>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {% include "utils/page-footer.html" %}
+{% endblock %}
+
+{% block store_scripts %}
+{% endblock %}
+
+

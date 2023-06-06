@@ -1,0 +1,76 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    جستجو/ویرایش در کالا های انبار
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="rol-12 my-5">
+                    <h3 class="text-center"><span class="text-danger">جستجو/ویرایش</span> در کالای های موجود در انبار</h3>
+                    <p class="text-center text-muted">در این بخش با  جستجو در کالا ها میتوانید کالا مورد نظر خود را پیدا و <span class="text-danger">ویرایش</span> نمایید</p>
+                </div>
+
+                <form method="post" action="{{ url_for('store.edit_product_post') }}" dir="rtl">
+                    {{ form.hidden_tag() }}
+
+                    <label for="SearchOption" class="w-100 my-3">
+                        <span class="text-danger">*</span>
+                        <span>معیار جستجو را انتخاب کنید</span>
+                        {{ form.SearchOptions(class="form-control", id="SearchOption") }}
+                    </label>
+
+                    <label for="searchbox" class="w-100 my-3">
+                        <span class="text-danger">*</span>
+                        <span>کادر جستجو را کامل نمایید</span>
+                        {{ form.SearchBox(id="searchbox",class="form-control", placeholder="محتوای جستجو") }}
+                    </label>
+
+
+                    {{ form.submit(class="btn btn-success w-100", value="جســــتجو") }}
+
+                </form>
+
+                <!-- info section for manage products -->
+                <div class="manage-users-info my-5">
+                    <h3 class="text-center">راهنمایی جستجو در محصولات</h3>
+                    <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center ">
+                        <li>در این بخش میتوانید جستجوی پیشرفته در بین محصولات موجود در انبار را انجام دهید</li>
+                        <li><span class="text-danger">اسم محصول</span>: جستجو بر اساس نام محصول انجام می شود</li>
+                        <li><span class="text-danger">پارت نامبر</span>: جستجو بر اساس پارت نامبر انجام می شود</li>
+                        <li><span class="text-danger">شماره انبار</span>: جستجو بر اساس شماره انبار انجام می شود</li>
+                        <li><span class="text-danger">قیمت محصول</span>: جستجو بر اساس قیمت انجام می شود</li>
+                        <li><span class="text-danger">تاریخ ورود به انبار</span>: جستجو بر اساس تاریخ ورود انجام می شود
+                        </li>
+                        <li><span class="text-danger">شرکت سازنده</span>: جستجو بر اساس شرکت سازنده انجام می شود</li>
+                        <li><span class="text-danger">شخص آورنده</span>: جستجو بر اساس شخص آورنده انجام می شود</li>
+                        <li><span class="text-danger">نماینده فروش</span>: جستجو بر اساس نماینده فروش کالا انجام می شود
+                        </li>
+                        <li><span class="text-danger">موجودی</span>: جستجو بر اساس موجودی محصول انجام می شود</li>
+                        <li><span class="text-danger">جستجو در متن</span>: جستجو در متن توضیحات محصول انجام می شود که
+                            شامل جزیی از متن توضحات یا تمام آن می شود
+                        </li>
+                    </ul>
+                    <p class="text-center mt-4"><span class="text-danger">معیار نمایش</span>: با انتخاب گزینه اولین تنها
+                        یک مورد از موارد جستجو شده برای شما بازگردانده خواهد شد اما با انتخاب گزینه تمام ، تمام موارد
+                        پیدا شده برای شما بازگردانده خواهد شد</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block store_scripts %}
+{% endblock %}
+
+

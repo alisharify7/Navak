@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('login_public_static', path='css/logins_public.css') }}">
+    {% block store_styles %}
+    {% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div class="contianer-fluid bg-panel">
+        <div class="row m-0 w-100">
+            <div class="col-md-8 col-lg-9 col-12 p-0 m-0 left-column">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- header -->
+                        <div class="col-12 d-flex justify-content-between align-items-center my-4">
+                            <div class="d-flex align-items-center">
+                                <span class="mx-1 bg-white px-2 py-2 rounded-3 persian-date-now">00/00/00</span>
+                                <span class="ms-1 bg-white px-2 py-2 rounded-3 persian-time-now">00:00</span>
+                            </div>
+                            <div>
+                                <h3 class="px-4">داشبورد مدیریتی <span class="text-danger">انبار</span></h3>
+                            </div>
+                        </div>
+                        <!-- end of header -->
+                        {% block store_content %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar menu -->
+            <div class="col-md-4 col-lg-3 col-7 col-sm-6 order-md-last order-first p-0 m-0 position-fixed top-0 bottom-0 end-0 menu-container "
+                 style="height:100vh;">
+                <aside class="p-0 m-0 h-100 bg-dark text-white d-flex flex-column ">
+                    <!-- header menu -->
+                    <div class="header-menu border-bottom p-4 d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn bg-upper text-white px-4 btn-close-menu"><i
+                                    class="bi bi-arrow-right"></i></button>
+                        </div>
+                        <div>
+                            <img width="80px" height="80px" class="rounded-circle navak-aside-header-img"
+                                 src="{{ url_for('setting.serve_user_image') }}" alt="user image">
+                        </div>
+                    </div>
+                    <!-- end of header menu -->
+                    <!-- menu buttons -->
+                    <div class="menu-buttons my-5 menu-bottons-aside">
+
+                        {% if content.page == "dashboard" %}
+                            <a href="{{ url_for('store.index_view') }}"
+                               class="d-flex text-decoration-none text-white justify-content-end align-items-center my-2 p-3 border-end-brand menu-selected">
+                                <span class="me-3 hidden-btn-menu">داشبورد</span>
+                                <i class="bi bi-list fs-3 mt-2"></i>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('store.index_view') }}"
+                               class="d-flex text-decoration-none text-white justify-content-end align-items-center my-2 p-3 border-end-brand border-hover">
+                                <span class="me-3 hidden-btn-menu">داشبورد</span>
+                                <i class="bi bi-list fs-3 mt-2"></i>
+                            </a>
+                        {% endif %}
+
+                        {% if content.page == "manage-products" %}
+                            <a href="{{ url_for('store.manage_products') }}"
+                               class="d-flex  text-decoration-none text-white justify-content-end align-items-center my-2 p-3 border-end-brand menu-selected">
+                                <span class="me-3 hidden-btn-menu">مدیریت کالا ها</span>
+                                <i class="bi bi-plugin"></i>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('store.manage_products') }}"
+                               class="d-flex  text-decoration-none text-white justify-content-end align-items-center my-2  p-3  border-end-brand border-hover">
+                                <span class="me-3 hidden-btn-menu">مدیریت کالا ها</span>
+                                <i class="bi bi-plugin"></i>
+                            </a>
+                        {% endif %}
+
+                        {% if content.page == "messages" %}
+                            <a href="{{ url_for('store.message_index') }}"
+                               class="d-flex flex-row-reverse text-decoration-none text-white justify-content-between align-items-center my-2 p-3 border-end-brand menu-selected">
+                                <div>
+                                    <span class="me-3 hidden-btn-menu">مکاتبات</span>
+                                    <i class="bi bi-envelope-fill"></i>
+                                </div>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('store.message_index') }}"
+                               class="d-flex flex-row-reverse text-decoration-none text-white justify-content-between align-items-center my-2 p-3 border-end-brand border-hover">
+                                <div>
+                                    <span class="me-3 hidden-btn-menu">مکاتبات</span>
+                                    <i class="bi bi-envelope-fill"></i>
+                                </div>
+                            </a>
+                        {% endif %}
+
+                        {% if content.page == "projects" %}
+                            <a href="{{ url_for('store.manage_edit_products_get') }}"
+                               class="d-flex flex-row-reverse text-decoration-none text-white justify-content-between align-items-center my-2 p-3 border-end-brand menu-selected">
+                                <div>
+                                    <span class="me-3 hidden-btn-menu">خروج کالا</span>
+                                    <i class="bi bi-cast"></i>
+                                </div>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('store.manage_edit_products_get') }}"
+                               class="d-flex flex-row-reverse text-decoration-none text-white justify-content-between align-items-center my-2 p-3 border-end-brand border-hover">
+                                <div>
+                                    <span class="me-3 hidden-btn-menu">خروج کالا</span>
+                                    <i class="bi bi-cast"></i>
+                                </div>
+                            </a>
+                        {% endif %}
+
+
+                        {% if content.page ==  "report" %}
+                            <a href="{{ url_for('store.report_index') }}"
+                               class="d-flex text-decoration-none text-white justify-content-end align-items-center my-2 p-3 border-end-brand menu-selected">
+                                <span class="me-3 hidden-btn-menu">گزارشات</span>
+                                <i class="bi bi-clipboard-check-fill"></i>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('store.report_index') }}"
+                               class="d-flex  text-decoration-none text-white justify-content-end align-items-center my-2 p-3 border-end-brand border-hover">
+                                <span class="me-3 hidden-btn-menu">گزارشات</span>
+                                <i class="bi bi-clipboard-check-fill"></i>
+                            </a>
+                        {% endif %}
+
+                        {% if content.page == "setting" %}
+                            <a href="{{ url_for('store.setting') }}"
+                               class="d-flex text-decoration-none text-white justify-content-end align-items-center my-2 p-3 border-end-brand menu-selected">
+                                <span class="me-3 hidden-btn-menu">تنظیمات</span>
+                                <i class="bi bi-gear-fill"></i>
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('store.setting') }}"
+                               class="d-flex text-decoration-none text-white justify-content-end align-items-center my-2  p-3 border-end-brand border-hover">
+                                <span class="me-3 hidden-btn-menu">تنظیمات</span>
+                                <i class="bi bi-gear-fill"></i>
+                            </a>
+                        {% endif %}
+
+                        <a role="button" data-bs-toggle="modal" data-bs-target="#exit-modal"
+                           class="mt-5 d-flex text-decoration-none text-white justify-content-end align-items-center my-2  p-3  border-end-brand border-hover">
+                            <span class="me-3 hidden-btn-menu">خروج از حساب کاربری</span>
+                            <i class="bi bi-box-arrow-in-left"></i>
+                        </a>
+
+
+                    </div>
+                    <!-- end of menu buttons -->
+                    <p class="mt-auto text-center text-white navak-menu-icon"> 2023 - سامانه هوشمند ناوک
+                        <span>&#169;</span></p>
+                </aside>
+            </div>
+            <!-- end of side bar menu -->
+        </div>
+    </div>
+
+    {% include "utils/alert.html" %}
+    <!-- model exit -->
+    <div class="modal fade" id="exit-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header w-100 d-flex justify-content-between align-items-center">
+                    <p class="mb-0">خروج از سامانه</p>
+                    <button class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-end">
+                    <p class="text-center">توجه داشته باشد</p>
+                    <p>در صورت خروج از سامانه برای دسترسی به پنل باید دوباره وارد شوید</p>
+                </div>
+                <div class="modal-footer justify-content-start">
+                    <button class="btn btn-success" data-bs-dismiss="modal">می مانم</button>
+                    <a href="{{ url_for('auth.logout_view') }}" class="btn btn-danger">خروج</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of modal exit -->
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{{ url_for('login_public_static', path='js/logins_public.js') }}"></script>
+    {% block store_scripts %}
+    {% endblock %}
+{% endblock %}
+

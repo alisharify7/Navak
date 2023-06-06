@@ -1,0 +1,71 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    گزارش کلی از انبار
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="rol-12 my-5">
+                    <h2 class="text-center"> گزارش خروج کالا های مرتبط با پروژه از انبار </h2>
+                </div>
+
+                <table dir="rtl" class="table table-dark table-bordered table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>نام کالا</th>
+                            <th>پارت نامبر کالا</th>
+                            <th>شماره انبار کالا</th>
+                            <th>تعداد کالا</th>
+                            <th>قیمت کالا</th>
+                            <th>توضیحات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for p in content.data %}
+                        <tr>
+                            <td>{{ p.ExitedProductPartNumber }}</td>
+                            <td>{{ p.ExitedDateTime }}</td>
+                            <td>
+                                <button class="btn btn-success w-100">SAPJ-{{ p.ProjectId }}</button>
+                            </td>
+                            <td>{{ p.PersonName }}</td>
+                            <td>{{ p.ExitedProductQTY }}</td>
+                            <td><span style="word-break: break-all">{{ p.Description }}</span></td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+
+                <!-- info section for manage products -->
+                <div class="manage-users-info my-5">
+                    <h3 class="text-center">راهنمایی خروج کالا های مرتبط با پروژه از انبار</h3>
+                    <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                        <li>در این بخش می توانید گزارش خروج کالا هایی که مرتبط با پروژه هستند را مشاهده می کنید</li>
+                    </ul>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block store_scripts %}
+{% endblock %}
+
+

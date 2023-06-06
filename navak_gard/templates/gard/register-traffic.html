@@ -1,0 +1,57 @@
+{% extends "gard/base.html" %}
+
+{% block title %}
+    Hello World
+{% endblock %}
+
+{% block gard_styles %}
+{% endblock %}
+
+
+{% block gard_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6 col-12 my-2">
+                    <div class="card shadow">
+                        <div class="card-header bg-warning text-center"></div>
+                        <div class="card-body text-center bg-warning d-flex flex-column justify-content-center align-items-center">
+                            <i class="bi bi-building-check text-danger display-3"></i>
+                            <a href="{{ url_for('gard.employee_register_traffic') }}" class="text-white text-decoration-none">ثبت گزارش ورود و خروج کارمند</a>
+                        </div>
+                        <div class="card-footer bg-warning"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-12 my-2">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-center text-white">تردد افراد ناشناس امروز</div>
+                        <div class="card-body text-center bg-primary d-flex flex-column justify-content-center align-items-center">
+                            <i class="bi bi-building-dash display-3 text-white"></i>
+                            <a href="{{ url_for('gard.guest_register') }}" class="text-white text-decoration-none">ثبت گزارش ورود و خروج متفرقه</a>
+                        </div>
+                        <div class="card-footer bg-primary"></div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12 my-5">
+                    <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</li>
+                        <li>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block gard_scripts %}
+{% endblock %}

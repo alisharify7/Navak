@@ -1,0 +1,35 @@
+{#
+    this template uses for showing received messages to user
+    its inheritance from sections/received_message.html
+#}
+
+{% extends "admin/base.html" %}
+
+{% block title %}
+    نامه های دریافت شده من
+{% endblock %}
+
+{% block admin_style %}
+{% endblock %}
+
+{% block admin_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center">نامه های <span class="text-danger">دریافت</span> شده </h3>
+                </div>
+                {% include "sections/received_message.html" %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block admin_scripts %}
+    <script src="{{ url_for('login_public_static', path='js/add-linktr.js') }}"></script>
+
+{% endblock %}
+
+

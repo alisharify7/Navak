@@ -1,0 +1,10 @@
+.container-page{
+    background: url(../media/img4.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.backgrop-light{
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}

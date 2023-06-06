@@ -1,0 +1,47 @@
+{#
+    message index in store app
+    this template inheritance from section/message.html
+#}
+
+{% extends "admin/base.html" %}
+
+{% block title %}
+    مکاتبات درون سازمانی
+{% endblock %}
+
+{% block admin_style %}
+{% endblock %}
+
+{% block admin_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- start control btns -->
+                <div class="col-12">
+                    <a href="{{ url_for('admin.search_message_get') }}" class="my-2 btn btn-info"
+                       id="sends_message_btn">جستجو در نامه ها</a>
+
+                    <a href="{{ url_for('admin.sends_message_get') }}" class="my-2 btn btn-success"
+                       id="sends_message_btn">نامه های ارسال شده</a>
+
+                    <a href="{{ url_for('admin.received_message_get') }}" class="my-2 btn btn-warning"
+                       id="received_message_btn">نامه های دریافتی</a>
+
+                    <a href="{{ url_for('admin.send_message_get') }}" class="my-2 btn btn-primary"
+                       id="send_new_message_btn">ارسال نامه</a>
+                </div>
+                <!-- end of control btns -->
+                {% include "sections/message.html" %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block admin_scripts %}
+    {#this js script call an api and bring user messages and show it in nice table automaticlly#}
+    <script src="{{ url_for('login_public_static', path='js/message.js') }}"></script>
+{% endblock %}
+
+

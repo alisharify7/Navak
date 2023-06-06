@@ -1,0 +1,118 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    گزارش خروج کالا مرتبط با پروژه انبار
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="rol-12 my-5">
+                    <h2 class="text-center"> گزارش خروج کالا های مرتبط با پروژه از انبار </h2>
+                </div>
+
+                <table dir="rtl" class="table table-dark table-bordered table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>پارت نامبر کالا</th>
+                            <th>ساعت خروج</th>
+                            <th>شماره پروژه</th>
+                            <th>شخص خارج کننده</th>
+                            <th>تعداد خروج</th>
+                            <th>توضیحات</th>
+                            <th>گزارش سیستم</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for p in content.data %}
+                        <tr>
+                            <td>{{ p.ExitedProductPartNumber }}</td>
+                            <td>{{ p.ExitedDateTime | convert_dt2_khayyam  }} {{ p.ExitedDateTime.time() }}</td>
+                            <td>
+                                <button class="btn btn-success w-100">SAPJ-{{ p.ProjectId }}</button>
+                            </td>
+                            <td>{{ p.PersonName }}</td>
+                            <td>{{ p.ExitedProductQTY }}</td>
+                            <td><span style="word-break: break-all">{{ p.Description }}</span></td>
+                            <td><span style="word-break: break-all">{{ p.SysLogExit }}</span></td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+
+                    {# pagination for users in table #}
+                    <nav class="d-flex justify-content-center align-items-center" aria-label="Page navigation "
+                         dir="ltr">
+                        <ul class="pagination">
+
+                            {% if content.project.pages - content.current_page  >= 0 and content.current_page != 1 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('store.report_exit_project_index', page=content.current_page - 1) }}"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for page in content.project.iter_pages(right_edge=1, left_edge=1,right_current=1, left_current=1) %}
+                                {% if page %}
+                                    {% if page == content.current_page %}
+                                        <li class="page-item">
+                                            <a class="page-link active"
+                                               href="{{ url_for('store.report_exit_project_index', page=page) }}">{{ page }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="{{ url_for('store.report_exit_project_index', page=page) }}">{{ page }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if content.project.pages - content.current_page > 0 %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="{{ url_for('store.report_exit_project_index', page_user=content.current_page + 1) }}"
+                                       aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+
+
+                                <!-- info section for manage products -->
+                <div class="manage-users-info my-5">
+                    <h3 class="text-center">راهنمایی خروج کالا های مرتبط با پروژه از انبار</h3>
+                    <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                        <li>در این بخش می توانید گزارش خروج کالا هایی که مرتبط با پروژه هستند را مشاهده می کنید</li>
+                    </ul>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block store_scripts %}
+{% endblock %}
+
+

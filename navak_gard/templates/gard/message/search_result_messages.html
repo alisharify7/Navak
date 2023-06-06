@@ -1,0 +1,37 @@
+{#
+    this template uses for showing result of user searching in its own mailbox
+    its inheritance from sections/search_result_messages.html
+#}
+
+{% extends "admin/base.html" %}
+
+{% block title %}
+    نتیجه جستجو در نامه ها من
+{% endblock %}
+
+{% block admin_style %}
+{% endblock %}
+
+{% block admin_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center">نتیجه <span class="text-danger">جستجو</span> در نامه ها </h3>
+                </div>
+
+                {% include "sections/search_result_messages.html" %}
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block admin_scripts %}
+    <script src="{{ url_for('login_public_static', path='js/add-linktr.js') }}"></script>
+
+{% endblock %}
+
+

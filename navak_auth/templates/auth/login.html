@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}ورود به حساب کاربری | ناوک{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('auth.static', filename='auth/css/employeeLogin.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- login -->
+<section>
+    <div class="container-fluid container-page">
+        <div class="row">
+            <div class="col-lg-5 order-last backgrop-light text-white">
+                <div class="container-fluid h-100">
+                    <div class="row h-100">
+                        <div class="col-12 d-flex justify-content-end align-items-center ">
+                            <div class="d-flex flex-column align-items-center justify-content-center me-3">
+                                <p class="mb-0">سامانه هوشمند ناوک</p>
+                                <p class="mb-0">سامانه هوشمند ناوک</p>
+                            </div>
+                            <img class="bg-white rounded-circle" src="{{ url_for('static', filename='media/logo.png') }}" style="width: 80px; height:80px;" alt="">
+                        </div>
+                        <div class="col-12 my-5 d-flex flex-column justify-content-center align-items-center">
+                            <h1 class="text-center">سامانه هوشمند ناوک</h1>
+                            <h1 class="text-center">اسم شرکت</h1>
+                        </div>
+                        <div class="col-12 mt-auto">
+                            <p>www.example.ir</p>
+                            <p>www.example.example.ir</p>
+                            <p>www.example.example.example.ir</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-12 ">
+                <div class="container-fluid h-100">
+                    <div class="row justify-content-center align-items-center" style="height: 100vh;">
+                        <div class="col-10">
+                            <div class="card rounded-4 p-3 py-5 shadow">
+                                <div class="card-header bg-white border-0">
+                                    <h2 class="text-center"> ورود به حساب کاربری</h2>
+                                </div>
+                                <div class="card-body">
+
+                                    <form action="{{ url_for('auth.login_post') }}" method="POST" dir="rtl" id="login-form">
+                                        {{ form.csrf_token() }}
+                                        <div class="my-4">
+                                            <p class="text-center text-muted m-0">لطفا نوع حساب کاربری را وارد نمایید</p>
+                                            {{ form.usergroup(class="form-select") }}
+                                        </div>
+                                        <div class="my-4">
+                                            {{ form.username(id="username", class="form-control", placeholder="نام کاربری خود را وارد کنید") }}
+                                            <p class="text-center text-muted m-0">حداقل طول نام کاربری 6 کاراکتر و حداکثر 64 کاراکتر می باشد</p>
+                                        </div>
+                                        <div class="my-4">
+                                            {{ form.password(id="password", class="form-control", placeholder="گذرواژه حساب کاربری خود را وارد کنید") }}
+                                            <p class="text-center text-muted m-0">حداقل طول گذرواژه حساب کاربری 6 کاراکتر و حداکثر 64 کاراکتر می باشد</p>
+                                        </div>
+                                        {{ form.submit(class="w-100 btn shadow-sm text-white bg-success", value="ورود") }}
+                                    </form>
+                                </div>
+                                <div class="card-footer bg-white border-0">
+                                    <div>
+                                        <p class="text-center">در صورت فراموشی رمز عبور برای دریافت رمز عبور جدید به پشتیبانی(بخش فنی) مراجعه کنید</p>
+                                    </div>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{url_for('index_view')}}" class="btn btn-success">بازگشت به سامانه ناوک</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of login -->
+    {% include "utils/alert.html" %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{url_for('auth.static', filename='auth/JS/login.js')}}"></script>
+{% endblock %}

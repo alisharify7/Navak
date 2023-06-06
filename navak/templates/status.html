@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}
+    وضعیت اشتراک شما
+{% endblock %}
+
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row my-5">
+                <div class="col-12">
+                    <h3 class="text-center">وضعیت اشتراک باقی مانده سرویس</h3>
+                </div>
+
+                <div class="col-12">
+                    <h3 class="text-center">Your Public ip is : {{ content.IP }}</h3>
+                </div>
+                <div class="col-12">
+                    <h3 class="text-center">Token auth : {{ content.MAC }}</h3>
+                </div>
+
+                <div class="col-12 container-app mt-5 pt-5">
+                </div>
+
+                <div class="fixed-bottom">
+                    <h3 class="text-center text-danger">&copy;Software Lock Powered By GNO/LOCK-KWP license </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+
+{% block scripts %}
+    <script>
+       Swal.fire({
+        title:"GNO_LOCK",
+        text: "this is a Status Page for GNU_LOOK software \n\n GNO is a Open Source and secure software lock for more info see : wwww.gno-lock.org",
+        icon: "success"
+    })
+
+        const container = document.querySelector(".container-app")
+        async function fetch_time(){
+            let response = await fetch("/status/", {
+                method:"POST",
+                headers:{
+                    "X-CSRFToken": document.querySelector("#csrf_token").value
+                }
+            })
+            let data =  await response.json()
+            return data
+        }
+
+        async function setup(){
+            container.innerHTML = ""
+            let data_time = await fetch_time()
+            put_data_in_html(data=data_time.expireAT, text="تاریخ انقضای اشتراک")
+            put_data_in_html(data=data_time.left_second, text="ثانیه باقی مانده")
+            put_data_in_html(data=data_time.left_micro_second, text="مایکرو ثانیه باقی مانده")
+            put_data_in_html(data=data_time.left, text="روز باقی مانده")
+        }
+
+
+        function put_data_in_html(data, text){
+            let temp =
+                `
+                    <h3 class="text-center my-5">${text}: ${data}</h3>
+                `
+            container.innerHTML += (temp)
+        }
+
+        setInterval(setup, 1000)
+
+    </script>
+{% endblock %}

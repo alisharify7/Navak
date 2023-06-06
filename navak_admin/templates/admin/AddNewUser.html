@@ -1,0 +1,78 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+    اضافه کردن کاربر جدید
+{% endblock %}
+
+{% block admin_styles %}
+{% endblock %}
+
+{% block admin_content %}
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <form action="{{ url_for('admin.add_new_user_post') }}" dir="rtl" id="add-new-user-form" method="POST">
+                {{ UserForm.hidden_tag() }}
+                <h3 class="text-center my-3"> اضافه کردن <span class="text-danger">کاربر</span> جدید</h3>
+
+                <label class="my-3 w-100" for="username-user">
+                    <span class="text-danger">*</span>
+                    <span>نام کاربری کاربر را وارد نمایید </span>
+                    {{ UserForm.Username(class="form-control", id="username-user", placeholder="نام کاربری به صورت لاتین") }}
+                    <p class="m-0 text-center text-muted">نام کاربری باید به صورت تمام انگلیسی وارد شود</p>
+                </label>
+
+                <label class="my-3 w-100" for="password-user">
+                    <span class="text-danger">*</span>
+                    <span>گذرواژه کاربر را وارد نمایید</span>
+                    {{ UserForm.Password(class="form-control", id="password-user", placeholder="گذرواژه با درجه سختی بالا") }}
+                    <p class="m-0 text-center text-muted">در انتخاب گذرواژه از اعداد و حروف استفاده شود</p>
+                </label>
+
+
+                <label class="my-3 w-100" for="username-user">
+                    <span class="text-danger">*</span>
+                    <span>نام و نام خانوادگی کاربر را وارد نمایید</span>
+                    {{ UserForm.Fullname(class="form-control", id="username-user", placeholder="به صورت فارسی") }}
+                </label>
+
+                <label class="my-3 w-100" for="user-role">
+                    <span class="text-danger">*</span>
+                    <span>نوع کاربر را مشخص نمایید</span>
+                    {{ UserForm.UserRole(class="form-control",id="user-role") }}
+                </label>
+
+                <label class="my-3 w-100" for="status-user">
+                    <span class="text-danger">*</span>
+                    <span>وضعیت حساب کاربری را وارد نمایید</span>
+                    {{ UserForm.Active(class="d-flex justify-content-around align-items-center list-unstyled", id="status-user") }}
+                    <p class="m-0 text-center text-muted">در صورت غیرفعال بود حساب کاربر اجازه ورود به حساب کاربری خود
+                        را ندارد</p>
+                </label>
+
+                {{ UserForm.Submit(value="ثبت کاربر جدید", class="btn btn-success w-100") }}
+
+
+            </form>
+
+
+            <div class="info my-5 text-center border-top pt-5">
+                <h3>راهنمایی</h3>
+                <ul dir="rtl" class="p-0 d-flex flex-column justify-content-center align-items-center">
+                    <li>ابتدا نوع کاربر را از طریق دکمه های کنترلی انتخاب سپس شروع به وارد کردن فیلد ها نمایید</li>
+                    <li>در انتخاب گذرواژه حساب کاربری از ترکیب حروف اعداد و شکل ها استفاده کنید</li>
+                    <li>در صورت وارد کردن اشتباهی موارد میتوانید از طریق ویرایش اکانت اقدام به ویرایش تغییرات نمایید
+                    </li>
+                    <li>در صورت مشاهده هر گرونه خطا پس از گذشت زمانی دوباره امتحان کنید</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block admin_scripts %}
+    <script src="{{ url_for('admin.private_static', path='js/AddUser.js') }}"></script>
+{% endblock %}

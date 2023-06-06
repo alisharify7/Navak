@@ -1,0 +1,71 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+    جستجو در پروژه ها
+{% endblock %}
+
+{% block admin_styles %}
+{% endblock %}
+
+{% block admin_content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12 my-5" dir="rtl">
+                <h3 class="text-center my-3">جستجو در پروژه ها</h3>
+                <form action="{{ url_for('admin.search_in_project_post') }}" method="POST">
+
+                    <label for="SearchOption" class="w-100 my-3">
+                        <span>معیار جستجو بر اساس: </span>
+                        {{ form.Options(class="form-control", id="SearchOption") }}
+                    </label>
+
+                    <label class="w-100 my-3" for="searchBox">
+                        <span>محتوای جستجو: </span>
+                        {{ form.SearchBox(class="form-control", id="searchBox", placeholder="محتوای جستجو") }}
+                        <p class="text-muted text-center m-0">تاریخ را در فرمت YYYY/MM/DD وارد نمایید</p>
+                        <p class="text-muted text-center m-0">نوع پروژه باید یکی از (تحقیقاتی، تجاری، نظامی) باشد</p>
+                        <p class="text-muted text-center m-0">وضعیت پروژه باید یکی از (در حال انجام، اتمام یافته، متوقف
+                            شده) باشد</p>
+                    </label>
+                    {{ form.hidden_tag() }}
+                    {{ form.submit(class="btn btn-success my-3 w-100", value="جستجو") }}
+                </form>
+            </div>
+
+            <div class="col-12 my-5" dir="rtl">
+                <h3 class="text-center">معیار های جستجو در پروژه ها</h3>
+                <ul class="mx-auto">
+                    <li>در این درگاه میتوانید در بین پروژه های موجود پروژه جستجو نمایید</li>
+                    <li>ابتدا معیار جستجو را انتخاب کنید و سپس اقدام به جستجو کنید</li>
+                    <li>تاریخ شروع: این معیار بر اساس تاریخ شروع پروژه ها جستجو می نماید</li>
+                    <li>تاریخ پایان: این معیار بر اساس تاریخ پایان پروژه ها جستجو می نماید</li>
+                    <li>کارفرما پروژه: این معیار بر اساس کارفرمای پروژه جستجو می نماید</li>
+                    <li>قیمت پروژه: این معیار بر قیمت پروژه جستجو می نماید</li>
+                    <li>متن توضیحات: این معیار در متن توضیحات تمام پروژه ها جستجو می نماید</li>
+                    <li>
+                        نوع پروژه: این معیار بر اساس نوع پروژه جستجو می نماید
+                        <ul>
+                            <li>تحقیقاتی: پروژه هایی که خود شرکت سرمایه گذار و طراح اصلی آنها می باشد</li>
+                            <li>تجاری: پروژه هایی که به سفارش سایر صنایع و شرکت ها ساخته می شود</li>
+                            <li>نظامی: پروژه هایی که در دسته نظامی قرار دارند</li>
+                        </ul>
+                    </li>
+                    <li>
+                        وضعیت پروژه: این معیار بر اساس وضعیت  فعلی پروژه جستجو می نماید
+                        <ul>
+                            <li>در حال انجام</li>
+                            <li>اتمام یافته</li>
+                            <li>متوقف شده</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block admin_scripts %}
+{% endblock %}

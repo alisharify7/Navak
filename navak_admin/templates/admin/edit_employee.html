@@ -1,0 +1,175 @@
+{% extends "admin/base.html" %}
+
+
+
+{% block title %}
+    ویرایش مشخصات {{ content.employee.FirstName }} {{ content.employee.LastName }}
+{% endblock %}
+
+{% block admin_styles %}
+{% endblock %}
+
+{% block admin_content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12 my-5" dir="rtl">
+                <h3 class="text-center">ویرایش مشخصات کاربری حساب <span
+                        class="text-danger">کارمند</span> {{ content.employee.FirstName }} {{ content.employee.LastName }}
+                </h3>
+            </div>
+
+            <div class="col-12 my-5" dir="rtl">
+                <form action="{{ url_for('admin.edit_employee_post') }}" dir="rtl" method="POST">
+                    {{ EmployeeForm.hidden_tag() }}
+                    <input type="hidden" name="employee_key" value="{{ content.employee.PublicKey }}">
+                    <label class="my-3 w-100" for="employee-username">
+                        <span class="text-danger">*</span>
+                        <span>نام کاربری کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.username(class="form-control", placeholder="نام کاربری کارمند" ,id="employee-username") }}
+                        <p class="m-0 text-center text-muted">نام کاربری باید تمام به صورت انگلیسی وارد شود</p>
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-password">
+                        <span class="text-danger">*</span>
+                        <span>گذرواژه حساب کاربری کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.password(class="form-control", placeholder="گذرواژه حساب کاربری کارمند" ,id="employee-password") }}
+                        <p class="m-0 text-center text-muted">در انتخاب گذرواژه از اعداد و حروف استفاده شود</p>
+                        <p class="m-0 text-center text-danger">به علت رمزنگاری گذرواژه امکان مشاهده گذرواژه وجود ندارد -
+                            در
+                            صورتی که قصد تغییر گذرواژه کاربر را ندارید این کادر را رها کنید</p>
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-first-name">
+                        <span class="text-danger">*</span>
+                        <span>نام کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.FirstName(class="form-control", placeholder="نام کارمند" ,id="employee-first-name") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-last-name">
+                        <span class="text-danger">*</span>
+                        <span>نام خانوادگی کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.LastName(class="form-control", placeholder="نام خانوادگی کارمند" ,id="employee-last-name") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-father-name">
+                        <span class="text-danger">*</span>
+                        <span>نام پدر کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.FatherName(class="form-control", placeholder="نام پدر کارمند" ,id="employee-father-name") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-birthday">
+                        <span class="text-danger">*</span>
+                        <span>تاریخ تولد کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.BirthDay(class="form-control", placeholder="تاریخ تولد کارمند" ,id="employee-birthday") }}
+                        <p class="m-0 text-center text-muted">مهم: فرمت ورودی تاریخ باید به صورت YYYY/MM/DD باشد</p>
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-meli-code">
+                        <span class="text-danger">*</span>
+                        <span>کد ملی کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.MeliCode(class="form-control", placeholder="کد ملی کارمند" ,id="employee-meli-code") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-birth-location">
+                        <span class="text-danger">*</span>
+                        <span>محل تولد کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.BirthDayLocation(class="form-control", placeholder="محل تولد کارمند" ,id="employee-birth-location") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-phone-number">
+                        <span class="text-danger">*</span>
+                        <span>شماره تلفن کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.PhoneNumber(class="form-control", placeholder="شماره تلفن کارمند" ,id="employee-phone-number") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-emergency-phone-number">
+                        <span class="text-danger">*</span>
+                        <span>شناره تلفن اضطراری کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.EmergencyPhone(class="form-control", placeholder="شماره تلفن اضطراری کارمند" ,id="employee-emergency-phone-number") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-address">
+                        <span class="text-danger">*</span>
+                        <span>آدرس کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.Address(class="form-control", placeholder="آدرس کارمند" ,id="employee-address") }}
+                    </label>
+
+
+                    <label class="my-3 w-100" for="employee-education">
+                        <span class="text-danger">*</span>
+                        <span>تحصیلات کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.Education(class="form-control", placeholder="تحصیلات کارمند" ,id="employee-education") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-code">
+                        <span class="text-danger">*</span>
+                        <span>کد کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.StaffCode(class="form-control", placeholder="کد کارمند" ,id="employee-code") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-contract-type">
+                        <span class="text-danger">*</span>
+                        <span>نوع قرارداد کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.ContractType(class="form-control", placeholder="نوع قرارداد کارمند" ,id="employee-contract-type") }}
+                    </label>
+
+
+                    <label class="my-3 w-100" for="employee-contract-start">
+                        <span class="text-danger">*</span>
+                        <span>تاریخ شروع قرارداد کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.StartContract(class="form-control", placeholder="تاریخ شروع قرارداد کارمند" ,id="employee-contract-start") }}
+                        <p class="m-0 text-center text-muted">مهم: فرمت ورودی تاریخ باید به صورت YYYY/MM/DD باشد</p>
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-contract-end">
+                        <span class="text-danger">*</span>
+                        <span>تاریخ اتمام قرارداد کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.EndContract(class="form-control", placeholder="تاریخ اتمام قرارداد کارمند" ,id="employee-contract-end") }}
+                        <p class="m-0 text-center text-muted">مهم: فرمت ورودی تاریخ باید به صورت YYYY/MM/DD باشد</p>
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-contract-end">
+                        <span class="text-danger">*</span>
+                        <span>موقعیت شغلی کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.WorkPosition(class="form-control", placeholder="موقعیت شغلی کارمند" ,id="employee-contract-end") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-marid-status">
+                        <span class="text-danger">*</span>
+                        <span>وضعیت تاهل کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.Marid(class="d-flex justify-content-around align-items-center list-unstyled", placeholder="وضعیت تاهل کارمند" ,id="employee-marid-status") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-children">
+                        <span class="text-danger">*</span>
+                        <span>تعداد فرزند کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.Children(class="form-control", placeholder="تعداد فرزند کارمند" ,id="employee-children") }}
+                    </label>
+
+                    <label class="my-3 w-100" for="employee-base-salary">
+                        <span class="text-danger">*</span>
+                        <span>حقوق پایه کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.BaseSalary(class="form-control", placeholder="حقوق پایه کارمند" ,id="employee-base-salary") }}
+                    </label>
+
+
+                    <label class="my-3 w-100" for="employee-account-status">
+                        <span class="text-danger">*</span>
+                        <span>وضعیت حساب کاربری کارمند را وارد نمایید</span>
+                        {{ EmployeeForm.Active(class="d-flex justify-content-around align-items-center list-unstyled", placeholder="وضعیت حساب کاربری کارمند" ,id="employee-account-status") }}
+                    </label>
+
+                    {{ EmployeeForm.submit(value="ثبت کارمند", class="btn btn-success w-100") }}
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block admin_scripts %}
+{% endblock %}

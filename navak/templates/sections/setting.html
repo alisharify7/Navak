@@ -1,0 +1,89 @@
+<div class="row text-center">
+    <hr>
+    <div class="col-12 my-3 d-flex justify-content-end align-items-center">
+        <div>
+            <h3 class="mx-4">تنظیمات</h3>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div>
+            <img src="{{ url_for('setting.serve_user_image') }}" style="width: 140px;height: 140px;"
+                 class="rounded-circle" alt="">
+        </div>
+        <div dir="rtl" class="my-2">
+            <p class="m-0">نام کاربری: <span id="username-user"></span></p>
+            <p class="m-0">واحد فعالیت: <span id="group-user"></span></p>
+            <p class="m-0">شناسه کاربری: <span dir="ltr" id="user_tag"></span></p>
+        </div>
+    </div>
+
+    <div class="col-12 my-5">
+        <div class="row justify-content-center" dir="rtl">
+            <div class="col-10 my-5">
+                <h5 class="text-end">تغییر عکس آواتار</h5>
+                <form action="{{ url_for('setting.change_avatar_post') }}" method="POST" enctype="multipart/form-data">
+                    <input type="file" dir="rtl" name="profile-img" id="profile-img" class="form-control">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-success w-100 my-2">تایید</button>
+                </form>
+            </div>
+            <div class="col-10 my-5">
+                <form action="{{ url_for('setting.change_user_tag') }}" method="POST" id="change-user-tag-form">
+                    <h5 class="text-end">شناسه کاربری</h5>
+                    <div class="input-group" dir="ltr">
+                        <button type="submit" class="btn btn-success input-group-text">تایید</button>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="referrer" value="" class="referrer">
+                        <input type="text" dir="rtl" placeholder="شناسه کاربری: @test" name="user-tag" id="user-tag"
+                               class="form-control">
+                    </div>
+                    <p class="text-center text-muted m-0">بدون @ وارد شود</p>
+                    <p class="text-center text-muted m-0">حداقل و حداکثر طول نام کاربری 4 و 128 کاراکتر است</p>
+                    <p class="text-center text-muted m-0">کاراکتر های مجاز حروف انگلیسی اعداد _ هستند</p>
+                </form>
+
+            </div>
+
+            <div class="col-10 my-5">
+
+                {% if session["account-id"] | HaveSignature %}
+                    <img src="{{ url_for('setting.serve_user_signature_image') }}" style="width: 140px;height: 140px;"
+                         class="rounded-circle" alt="">
+                {% else %}
+                    <p class="text-center m-0">شما تصویری برای امضای دیجیتال خود انتخاب نکردید</p>
+                {% endif %}
+
+                <h5 class="text-end">تغییر امضا دیجیتال</h5>
+                <form action="{{ url_for('setting.change_signature') }}" method="POST" enctype="multipart/form-data">
+                    <input type="file" dir="rtl" name="signature" id="signature" class="form-control">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-success w-100 my-2">تایید</button>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="my-5">
+            <h3 class="text-center">راهنما</h3>
+            <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                <li>از شناسه کاربری برای نامه های درون سازمانی استفاده میشود</li>
+                <li>در صورتی که میخوایید از نامه نگاری استفاده کنید باید حتما برای خود شناسه کاربری تنظیم کنید</li>
+                <li>امضای دیجیتال شما به صورت خودکار در انتهای نامه های شما درج میشود</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+<!-- footer -->
+    <div class="col-12 bg-dark">
+        <div class="py-3">
+            <p class=" text-center text-white-50"> 2023 - سامانه هوشمند اداری ناوک (پیشرو در خدمات نرم افزار) <span>&#169;</span></p>
+            <p class="text-white-50 text-center">version: 2023.0.1</p>
+        </div>
+    </div>
+<!-- end of footer -->
+
+</div>

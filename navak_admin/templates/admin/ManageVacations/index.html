@@ -1,0 +1,65 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+    مدیریت مرخصی های سامانه
+{% endblock %}
+
+{% block block_styles %}
+{% endblock %}
+
+{% block admin_content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+               {% include "sections/RequestVacationHander.html" %}
+
+
+            <h3 class="text-center mt-5">مرخصی های درخواستی اخیر</h3>
+            <div class="col-12">
+                <table dir="rtl" class="table table-dark table-responsive table-responsive table-bordered">
+
+                    <thead>
+                            <tr>
+                                <th>درخواست کننده</th>
+                                <th>عنوان درخواست</th>
+                                <th>توضیحات درخواست</th>
+                                <th>بخش</th>
+                                <th>تایم درخواست</th>
+                                <th>مقدار درخواست</th>
+                                <th>وضعیت</th>
+                                <th>پذیرنده</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        {% for req in content.oldRequests %}
+                                <tr>
+                                    <td>{{ req.Employee_id | EmployeeName | truncate(10, True, ' ...') }}</td>
+                                    <td>{{ req.RequestTitle |truncate(16, True, "...") }}</td>
+                                    <td style="word-break: break-all">{{ req.RequestCaption }}</td>
+                                    <td>{{ req.WorkPositionId | WorkPositionName }}</td>
+                                    <td>{{ req.RequestedDate }} </td>
+                                    <td>{{ req.RequestedValue }} ساعت</td>
+                                    <td>
+                                            {% if req.VacationStatus.strip() == "رد شد" %}
+                                                <button class="btn btn-danger w-100">رد شد</button>
+                                            {% elif  req.VacationStatus.strip() == "تایید شد" %}
+                                                <button class="btn btn-success w-100">تایید شد</button>
+                                            {% endif %}
+                                    </td>
+                                    <td>{{ req.ApprovedBy | UserName  }}</td>
+                                </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block admin_scripts %}
+{#    load this file from egineer app    #}
+    <script src="{{ url_for('engineer.private_static', path='js/VacationRequests.js') }}"></script>
+{% endblock %}

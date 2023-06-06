@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+
+{% block title %} تنظیمات{% endblock %}
+
+
+
+{% block admin_content %}
+    <div class="container-fluid">
+        {# users profile settings #}
+        {% include "sections/setting.html" %}
+    </div>
+{% endblock %}
+
+
+{% block admin_scripts %}
+    <script src="{{ url_for('login_public_static', path='js/setting.js') }}"></script>
+{% endblock %}
+
+

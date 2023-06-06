@@ -1,0 +1,24 @@
+{% extends "engineer/base.html" %}
+
+
+{% block title %}
+مدیریت مرخصی ها
+{% endblock title %}
+
+
+{% block engineer_content %}
+<section>
+    <div class="container-fluid">
+        <div class="row">
+
+            {% include "sections/RequestVacationHander.html" %}
+
+        </div>
+    </div>
+</section>
+{% endblock engineer_content %}
+
+
+{% block engineer_scripts %}
+    <script src="{{ url_for('engineer.private_static', path='js/VacationRequests.js') }}"></script>
+{% endblock  %}

@@ -1,0 +1,121 @@
+{% extends "admin/base.html" %}
+
+
+
+{% block title %}
+    داشبورد مدیریتی ادمین
+{% endblock %}
+
+{% block admin_styles %}
+    <style>
+        .info-card{
+            transition: all 0.8s;
+        }
+
+        .info-card:hover{
+            cursor: pointer;
+            transform: translateY(-10px);
+        }
+    </style>
+{% endblock %}
+
+{% block admin_content %}
+    <div class="container-fluid">
+        <h4 class="text-center">باکس آماری سامانه</h4>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-2 info-card">
+                <div class="card shadow">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <i class="bi bi-people-fill display-1 text-danger"></i>
+                        <p>تعداد کل کاربران سامانه: {{ content.total_users }} نفر</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span>در این بخش تعداد کل کاربران سامانه نمایش داده می شود</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-2 info-card">
+                <div class="card shadow">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <i class="bi bi-archive display-1 text-warning"></i>
+                        <p>تعداد کل نامه های سامانه: {{ content.total_mails }} عدد</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span>در این بخش تعداد تمام نامه های سامانه نمایش داده می شود</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-2 info-card">
+                <div class="card shadow">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <i class="bi bi-calendar-check-fill display-1 text-success"></i>
+                        <p>تعداد نامه های ارسالی امروز: {{ content.today_mails }} عدد</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span>در این بخش تعداد نامه های امروز سامانه نمایش داده می شود</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-2 info-card">
+                <div class="card shadow">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <i class="bi bi-file-excel display-1 text-primary"></i>
+                        <p>تعداد کارمندان غایب امروز: 6 نفر</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span>در این بخش تعداد کارمندانی که حضورشان توسط واحد حراست ثبت نشده است نمایش داده می شود</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-2 info-card">
+                <div class="card shadow">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <i class="bi bi-pen display-1 text-primary"></i>
+                        <p>تعداد مرخصی امروز: 6 نفر</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span>در این بخش تعداد کارمندانی که برای امروز در سامانه مرخصی داشته اند نمایش داده می شود</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-2 info-card">
+                <div class="card shadow">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <i class="bi bi-bookmark-check-fill display-1 text-secondary"></i>
+                        <p>تعداد کارمندان حاضر امروز: {{ content.today_ready_employees }} نفر</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span>در این بخش تعداد کارمندانی که حضورشان توسط واحد حراست ثبت شده است نمایش داده می شود</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-2 info-card">
+                <div class="card shadow">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <i class="bi bi-shop display-1 text-info"></i>
+                        <p>محصولات واردی انبار: 12 عدد</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span>در این بخش تعداد کالا هایی  جدیدی که امروز وارد انبار شده اند نمایش داده می شود </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 my-2 info-card">
+                <div class="card shadow">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <i class="bi bi-shop display-1 text-info"></i>
+                        <p>محصولات خروجی انبار: 12 عدد</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <span>در این بخش تعداد کل گزارش های خروجی برای کالا های انبار نمایش داده می شود </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block admin_scripts %}
+{% endblock %}

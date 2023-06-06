@@ -1,0 +1,105 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+خروج کالا برای پروژه {{content.project.ProjectName}}
+{% endblock %}
+
+{% block store_style %}
+{% endblock %}
+
+{% block store_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="rol-12 my-5" dir="rtl">
+                    <h3 class="text-center">خروج کالا برای پروژه <span class="text-danger">{{content.project.ProjectName}}</span></h3>
+                    <p class="text-center"> کارفرما پروژه: {{ content.project.ProjectHandler }}</p>
+                </div>
+
+                <table dir="rtl" class="table table-hover table-responsive table-bordered table-dark">
+                    <thead>
+                        <tr>
+                            <th>نام کالا</th>
+                            <th>پارت نامبر</th>
+                            <th>تعداد</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbdy>
+
+                        {% for product in content.product %}
+
+                            <tr>
+                                <td>{{ product.ProductName }}</td>
+                                <td>{{ product.ProductPartNumber }}</td>
+                                <td>{{ product.ProductQT }}</td>
+
+                                <td>
+                                    {% if product.ProductQT.split("/")[0] == product.ProductQT.split("/")[1] %}
+                                        <button class="btn btn-success w-100">تکمیل شده است</button>
+                                        <input data-product-key="{{ product.ProductKey }}"
+                                               class="d-none product-exit-qt" type="number">
+                                    {% else %}
+                                        <input data-product-key="{{ product.ProductKey }}"
+                                               class="form-control product-exit-qt" type="number">
+                                    {% endif %}
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+
+                    </tbdy>
+                </table>
+
+                <form method="POST" action="{{ url_for('store.register_product_project_post') }}" id="FormExitProduct"
+                      dir="rtl">
+
+                    <label class="w-100 my-3">
+                        <span>نام شخص گیرنده کالا را وارد نمایید:</span>
+                        {{ form.PersonName(class="form-control", placeholder="نام شخص") }}
+                    </label>
+
+                    <label class="w-100 my-3">
+                        <span>توضیحاتی در رابطه با خروج محصول وارد نمایید </span>
+                        {{ form.Description(class="form-control", placeholder="توضیحات") }}
+                    </label>
+
+
+                    {{ form.Products(id="productsProject") }}
+                    {{ form.ProjectKey() }}
+                    {{ form.csrf_token() }}
+                    {{ form.submit(class="w-100 btn btn-success", value="ثبت") }}
+                </form>
+
+
+                <!-- info section for manage products -->
+                <div class="manage-users-info my-5">
+                    <h3 class="text-center">راهنمایی برای خروج کالا از انبار</h3>
+                    <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                        <li>در این بخش میتوانید کالای های انبار را مدیریت نمایید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید</li>
+                        <li>در صورتی که کالایی در انبار وجود دارد برای افزایش تعداد آن از منو ویرایش استفاده کنید</li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block store_scripts %}
+    <script src="{{ url_for('store.serve_store_static', path='js/ExitProductProjects.js') }}"></script>
+{% endblock %}
+
+

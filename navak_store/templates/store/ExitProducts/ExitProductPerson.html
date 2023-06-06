@@ -1,0 +1,87 @@
+{% extends "store/base.html" %}
+
+
+{% block title %}
+    ثبت خروج کالا برای شخص
+{% endblock %}
+
+{% block store_styles %}
+    <style>
+        .cursor-pointer:hover{
+            cursor: pointer !important;
+        }
+    </style>
+{% endblock %}
+
+{% block store_content %}
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="rol-12 my-5" dir="rtl">
+                    <h3 class="text-center">خروج کالا برای  <span class="text-danger">شخص</span></h3>
+                </div>
+
+                <table class="table-dark table table-responsive table-hover table-bordered" dir="rtl">
+                    <thead>
+                        <tr>
+                            <th>پارت نامبر کالا</th>
+                            <th>نام کالا</th>
+                            <th>تعداد</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-container">
+
+                    </tbody>
+                        <tr>
+                            <td colspan="4">
+                                <button class="btn btn-primary w-100 my-2" id="add-new-row">اضافه کردن</button>
+                            </td>
+                        </tr>
+                </table>
+
+                <form method="POST" action="{{ url_for('store.exit_product_person_post') }}" id="FormExitProductPerson" dir="rtl">
+                      <label class="w-100 my-3">
+                        <span>نام شخص گیرنده کالا را وارد نمایید:</span>
+                        {{ form.PersonName(class="form-control", placeholder="نام شخص") }}
+                    </label>
+
+                    <label class="w-100 my-3">
+                        <span>توضیحاتی در رابطه با خروج محصول وارد نمایید </span>
+                        {{ form.Description(class="form-control", placeholder="توضیحات") }}
+                    </label>
+
+                    {{ form.Products(id="productsPerson") }}
+                    {{ form.csrf_token() }}
+                    {{ form.submit(class="w-100 btn btn-success", value="ثبت خروج") }}
+                </form>
+
+
+                <!-- info section for manage products -->
+                <div class="manage-users-info my-5">
+                    <h3 class="text-center">راهنمایی برای خروج کالا از انبار</h3>
+                                <ul dir="rtl" class="d-flex flex-column justify-content-center align-items-center">
+                        <li>در این بخش میتوانید گزارش خروجی محصول از انبار را ثبت نمایید</li>
+                        <li>گزارش خروجی به 2 دسته ی خروج برای پروژه و خروجی به شخص تقسیم می شود</li>
+                        <li>خروج برای شخص: محصولاتی هستند که برای هیچ پروژه ای نمی باشد و به شخص تحویل داده می شود</li>
+                        <li>خروج برای پروژه : محصولاتی هستند که برای پروژه ای خاص که تعریف شده است خروج زده می شوند</li>
+                        <li>در صورتی که محصولات خارج شده مرتبط به پروژه ای می باشد که در جزییات آن ذکز شده است از خروج کالا مرتبط با
+                        پروژه استفاده نمایید</li>
+                        <li>در صورتی که کالای خروجی مرتبط به هیچ پروژه ای نمی باشد میتوانید از خروج کالا برای شخص استفاده نمایید</li>
+                        <li>در هنگام ثبت گزارش حتما اسم شخص تحویل گیرنده و توضیحات را به طور کامل تکمیل نمایید</li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block store_scripts %}
+    <script src="{{ url_for('store.serve_store_static', path='js/ExitProductPerson.js') }}"></script>
+{% endblock %}
+
+
